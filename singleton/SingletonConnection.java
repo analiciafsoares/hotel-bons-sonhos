@@ -11,9 +11,10 @@ public class SingletonConnection {
         try {
             String USUARIO = System.getenv("USUARIO");
             String SENHA = System.getenv("SENHA");
+            String BD = System.getenv("BD");
 
             Class.forName("com.mysql.cj.jdbc.Driver"); 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel_db", USUARIO, SENHA);
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + BD, USUARIO, SENHA);
 
             System.out.println("Conectado");
         } catch (ClassNotFoundException | SQLException e) {
