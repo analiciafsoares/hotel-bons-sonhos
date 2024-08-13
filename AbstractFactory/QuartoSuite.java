@@ -1,6 +1,4 @@
 package AbstractFactory;
-import java.util.List;
-import java.util.ArrayList;
 
 
 
@@ -9,23 +7,17 @@ import java.util.ArrayList;
 
 
 
-public class QuartoSuite implements Quartos {
-    public double precoBase(){
-        return 370.00;
+
+public class QuartoSuite extends Quartos {
+    
+    
+    public QuartoSuite(int numero, int andar, double precoDiaria, String tipo) {
+        super(numero, andar, precoDiaria, tipo);
     }
 
-    public String tipoDeQuarto(){
-        return "Quarto Suíte";
-    }
-    public List<String> quantidadeDeMoveis(){
-        List<String> moveis = new ArrayList();
-        moveis.add("Cama King");
-        moveis.add("3 sofás");
-        moveis.add("2 banheiros");
-
-        return moveis;
-
-
+    
+    public String getDescricao() {
+        return "Quarto de Suíte no andar " + getAndar() + " com número " + getNumero();
     }
 
 }
