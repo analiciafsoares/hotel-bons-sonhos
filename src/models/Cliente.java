@@ -1,5 +1,4 @@
-
-
+package models;
 
 public class Cliente {
     private int codigoDoCliente;

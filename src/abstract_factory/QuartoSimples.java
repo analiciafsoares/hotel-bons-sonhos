@@ -1,9 +1,4 @@
-package AbstractFactory;
-
-
-
-
-
+package abstract_factory;
 
 public class QuartoSimples extends Quartos {
     public QuartoSimples(int numero, int andar, double precoDiaria, String tipo) {

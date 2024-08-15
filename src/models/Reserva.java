@@ -1,8 +1,8 @@
+package models;
 
 import java.util.Date;
 
-
-import AbstractFactory.Quartos;
+import abstract_factory.Quartos;
 
 public class Reserva {
     private int id;

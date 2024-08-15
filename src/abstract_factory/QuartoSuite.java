@@ -1,12 +1,4 @@
-package AbstractFactory;
-
-
-
-
-
-
-
-
+package abstract_factory;
 
 public class QuartoSuite extends Quartos {
     

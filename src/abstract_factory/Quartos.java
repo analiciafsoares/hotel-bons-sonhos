@@ -1,4 +1,4 @@
-package AbstractFactory;
+package abstract_factory;
 
 public abstract class Quartos {
     private int numero;
