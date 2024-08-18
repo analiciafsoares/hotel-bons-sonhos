@@ -1,13 +1,11 @@
 package models;
 
-import java.util.Date;
-
-import abstract_factory.Quartos;
+import java.sql.Date;
 
 public class Reserva {
     private int id;
     private Cliente cliente;
-    private Quartos quarto;
+    private Quarto quarto;
     private Date dataCheckin;
     private Date dataCheckout;
 
@@ -27,11 +25,11 @@ public class Reserva {
         this.cliente = cliente;
     }
 
-    public Quartos getQuarto() {
+    public Quarto getQuarto() {
         return quarto;
     }
 
-    public void setQuarto(Quartos quarto) {
+    public void setQuarto(Quarto quarto) {
         this.quarto = quarto;
     }
 

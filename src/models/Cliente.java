@@ -1,21 +1,10 @@
 package models;
 
 public class Cliente {
-    private int codigoDoCliente;
     private String nome;
     private String email;
     private String telefone;
     private String CPF;
-
-
-    public int getCodigoDoCliente(){
-        return codigoDoCliente;
-    }
-    public void setCodigoDoCliente(int codigoDoCliente){
-        this.codigoDoCliente = codigoDoCliente;
-    }
-    
-
 
     public String getNome() {
         return nome;
