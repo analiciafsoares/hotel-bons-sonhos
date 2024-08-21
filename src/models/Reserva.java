@@ -3,6 +3,7 @@ package models;
 import java.sql.Date;
 
 public class Reserva {
+
     private int id;
     private Cliente cliente;
     private Quarto quarto;
@@ -49,4 +50,14 @@ public class Reserva {
         this.dataCheckout = dataCheckout;
     }
 
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "id=" + id +
+                ", cliente=" + cliente +
+                ", quarto=" + quarto +
+                ", dataCheckin=" + dataCheckin +
+                ", dataCheckout=" + dataCheckout +
+                '}';
+    }
 }
