@@ -1,11 +1,13 @@
 package views;
 
+import views.ObjetosTelas.Botao;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class JanelaPadrao extends JFrame {
-    private JButton fechar = new JButton();
+    private Botao fechar = new Botao(false);
 
     public JanelaPadrao(){
         setLayout(null);
@@ -25,7 +27,7 @@ public class JanelaPadrao extends JFrame {
         });
     }
 
-    private void objeto(int a,int b,int c, int d) {
+    public void fechar(int a,int b,int c, int d) {
         fechar.setBounds(a,b,c,d);
         add(fechar);
         ouvinte();
