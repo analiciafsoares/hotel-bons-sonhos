@@ -24,7 +24,7 @@ public class TelaLogin extends JanelaPadrao{
     private void ouvintes() {
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, usuario.getText() + " " + senha.getText());
+
 
             }
         });
