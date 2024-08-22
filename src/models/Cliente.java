@@ -37,7 +37,9 @@ public class Cliente {
         this.CPF = CPF;
     }
     
-   
+   public String toString(){
+        return this.nome + this.CPF + this.email + this.telefone;
+   }
     
 
 
