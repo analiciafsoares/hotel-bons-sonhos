@@ -6,6 +6,7 @@ public class Quarto {
     private int andar;
     private double precoDiaria;
     private String tipo;
+    private int capacidadeMaxima;
 
     public int getCodigoQuarto() {
         return codigoQuarto;
@@ -44,4 +45,18 @@ public class Quarto {
     public void setTipo(String tipo){
         this.tipo = tipo;
     }
+    public void setCapacidadeMaxima(int capacidadeMaxima){
+        this.capacidadeMaxima = capacidadeMaxima;
+    }
+    public int getCapacidadeMaxima(){
+        return capacidadeMaxima;
+    }
+    public String validarCapacidade(int numeroDeHospedes) {
+        if (numeroDeHospedes <= this.capacidadeMaxima) {
+            return "Capacidade válida";
+        } else {
+            return "Capacidade excedida. Máximo permitido: " + this.capacidadeMaxima;
+        }
+    }
+    
 }

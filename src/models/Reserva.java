@@ -60,4 +60,11 @@ public class Reserva {
                 ", dataCheckout=" + dataCheckout +
                 '}';
     }
+    public String validarDisponibilidade(Date dataInicio, Date dataFim) {
+        if (this.dataCheckout.before(dataInicio) || this.dataCheckin.after(dataFim)) {
+            return "Quarto disponível";
+        } else {
+            return "Quarto indisponível para o período selecionado";
+        }
+    }
 }
