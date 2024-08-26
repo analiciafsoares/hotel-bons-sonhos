@@ -11,11 +11,10 @@ public class JanelaPadrao extends JFrame {
 
     public JanelaPadrao(){
         setLayout(null);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setSize(1920,1080);
+//        setUndecorated(true);
+        setSize(1280,720);
         setVisible(true);
     }
 
