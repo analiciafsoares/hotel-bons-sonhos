@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Connection;
-
 import singleton.SingletonConnection;
 
 public class ClienteDAO {
+
     public void cadastrarCliente(Cliente cliente){
-        String sql = "INSERT INTO clientes (NOME, EMAIL, TELEFONE, CPF) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO clientes (NOME, EMAIL, TELEFONE, CPF, SENHA) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
 
         try {
@@ -20,6 +20,7 @@ public class ClienteDAO {
             ps.setString(2, cliente.getEmail());
             ps.setString(3, cliente.getTelefone());
             ps.setString(4, cliente.getCPF());
+            ps.setString(5, cliente.getSenha()); // Adiciona a senha
 
             ps.execute();
             ps.close();
@@ -30,7 +31,7 @@ public class ClienteDAO {
     }
 
     public ArrayList<Cliente> listarClientes() {
-        String sql = "SELECT cpf, nome, email, telefone FROM clientes";
+        String sql = "SELECT cpf, nome, email, telefone, senha FROM clientes";
         ArrayList<Cliente> clientes = new ArrayList<>();
 
         try (Connection con = SingletonConnection.getCon();
@@ -43,6 +44,7 @@ public class ClienteDAO {
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
+                cliente.setSenha(rs.getString("senha")); // Recupera a senha
         
                 clientes.add(cliente);
             }
@@ -55,7 +57,7 @@ public class ClienteDAO {
     }
 
     public Cliente recuperarCliente(String cpf) {
-        String sql = "SELECT cpf, nome, email, telefone FROM clientes WHERE cpf = ?";
+        String sql = "SELECT cpf, nome, email, telefone, senha FROM clientes WHERE cpf = ?";
         Cliente cliente = null;
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
@@ -68,6 +70,7 @@ public class ClienteDAO {
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
+                cliente.setSenha(rs.getString("senha")); // Recupera a senha
             }
     
         } catch(SQLException e){
@@ -78,13 +81,14 @@ public class ClienteDAO {
     }
 
     public boolean atualizarCliente(Cliente cliente) {
-        String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE cpf = ?";
+        String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ?, senha = ? WHERE cpf = ?";
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEmail());
             ps.setString(3, cliente.getTelefone());
-            ps.setString(4, cliente.getCPF());
+            ps.setString(4, cliente.getSenha()); // Atualiza a senha
+            ps.setString(5, cliente.getCPF());
             
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0; 
@@ -94,7 +98,6 @@ public class ClienteDAO {
     
         return false;
     }
-    
 
     public void removerCliente(String cpf) {
         String checkSql = "SELECT COUNT(*) FROM reservas WHERE id_cliente = ?";
@@ -116,5 +119,4 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
-    
 }
