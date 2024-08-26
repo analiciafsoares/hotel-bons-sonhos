@@ -5,6 +5,10 @@ import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
 
 import javax.swing.*;
+
+import controller.LoginController;
+import dto.ClienteDTO;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,7 +27,12 @@ public class TelaLogin extends JanelaPadrao{
     private void ouvintes() {
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                ClienteDTO c = LoginController.verificarLogin(usuario.getText(), new String(senha.getPassword()).trim());
+                if (c != null){
+                    JOptionPane.showMessageDialog(null, "Bem-vindo, " + c.getNome() + "!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Email e/ou senha incorretos!");
+                }
 
             }
         });

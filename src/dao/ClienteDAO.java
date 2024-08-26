@@ -44,7 +44,7 @@ public class ClienteDAO {
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
-                cliente.setSenha(rs.getString("senha")); // Recupera a senha
+                cliente.setSenha(rs.getString("senha"));
         
                 clientes.add(cliente);
             }
