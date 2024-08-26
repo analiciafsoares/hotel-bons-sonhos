@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import models.Cliente;
 import java.sql.SQLException;

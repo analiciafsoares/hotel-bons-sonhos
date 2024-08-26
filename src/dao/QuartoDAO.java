@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import models.Quarto;
 import java.sql.SQLException;
