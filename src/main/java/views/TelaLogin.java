@@ -1,14 +1,12 @@
 package views;
 
+import controller.LoginController;
+import dto.ClienteDTO;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
 
 import javax.swing.*;
-
-import controller.LoginController;
-import dto.ClienteDTO;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

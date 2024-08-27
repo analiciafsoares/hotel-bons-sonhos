@@ -1,14 +1,13 @@
 package dao;
 
 import models.Quarto;
-import java.sql.SQLException;
+import singleton.SingletonConnection;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Connection;
-
-
-import singleton.SingletonConnection;
 
 public class QuartoDAO {
     public void cadastrarQuarto(Quarto quarto){

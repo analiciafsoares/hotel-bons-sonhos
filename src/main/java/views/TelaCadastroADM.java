@@ -7,7 +7,7 @@ import views.ObjetosTelas.EspacoTexto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TelaCadastrarClientes extends JanelaPadrao{
+public class TelaCadastroADM extends JanelaPadrao{
     private EspacoTexto usuario = new EspacoTexto();
     private EspacoSenha senha = new EspacoSenha();
     private EspacoSenha confirmarSenha = new EspacoSenha();
@@ -15,10 +15,22 @@ public class TelaCadastrarClientes extends JanelaPadrao{
 
 
 
-    public TelaCadastrarClientes(){
+    public TelaCadastroADM(){
         objetos();
         ouvintes();
-        fundo("Cadastro cliente");
+        fundo("Cadastro Admin");
+    }
+
+    private void ouvintes() {
+        cadastrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String pegarUsuario = usuario.getText();
+                String pegarSenha = String.valueOf(senha.getPassword());
+                String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
+
+
+            }
+        });
     }
 
     private void objetos() {
@@ -34,16 +46,7 @@ public class TelaCadastrarClientes extends JanelaPadrao{
         add(cadastrar);
     }
 
-    private void ouvintes() {
-        cadastrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-
-    }
-
     public static void main(String[] args) {
-        new TelaCadastrarClientes();
+        new TelaCadastroADM();
     }
 }

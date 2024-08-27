@@ -1,14 +1,10 @@
 package dao;
 
 import models.*;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.Date;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
 import singleton.SingletonConnection;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class ReservaDAO {
     public void cadastrarReserva(Reserva reserva){
@@ -96,8 +92,8 @@ public class ReservaDAO {
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, reserva.getCliente().getCPF());
             ps.setInt(2, reserva.getQuarto().getCodigoQuarto());
-            ps.setDate(3, new java.sql.Date(reserva.getDataCheckin().getTime()));
-            ps.setDate(4, new java.sql.Date(reserva.getDataCheckout().getTime()));
+            ps.setDate(3, new Date(reserva.getDataCheckin().getTime()));
+            ps.setDate(4, new Date(reserva.getDataCheckout().getTime()));
             ps.setInt(5, reserva.getId());
             
             int rowsAffected = ps.executeUpdate();

@@ -34,7 +34,7 @@ public class JanelaPadrao extends JFrame {
     }
 
     public void fundo(String foto) {
-        ImageIcon imagem = new ImageIcon("imagens/"+foto+".png");
+        ImageIcon imagem = new ImageIcon("src/main/java/imagens/"+foto+".png");
         JLabel label = new JLabel();
         label.setIcon(imagem);
         label.setBounds(0,0,getWidth(),getHeight());

@@ -3,7 +3,6 @@ package views.ObjetosTelas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.HashMap;
 
 public class EspacoTexto extends JTextField {
     public EspacoTexto() {
