@@ -15,6 +15,7 @@ public class JanelaPadrao extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        setUndecorated(true);
         setSize(1280,720);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
