@@ -1,5 +1,7 @@
 package dao;
 
+import dto.ClienteDTO;
+import mapper.Mapper;
 import models.Cliente;
 import singleton.SingletonConnection;
 
@@ -11,17 +13,19 @@ import java.util.ArrayList;
 
 public class ClienteDAO {
 
-    public void cadastrarCliente(Cliente cliente){
+    public void cadastrarCliente(ClienteDTO dto){
+        Cliente entity = Mapper.parseObject(dto, Cliente.class);
+
         String sql = "INSERT INTO clientes (NOME, EMAIL, TELEFONE, CPF, SENHA) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
 
         try {
             ps = SingletonConnection.getCon().prepareStatement(sql);
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getEmail());
-            ps.setString(3, cliente.getTelefone());
-            ps.setString(4, cliente.getCPF());
-            ps.setString(5, cliente.getSenha()); // Adiciona a senha
+            ps.setString(1, entity.getNome());
+            ps.setString(2, entity.getEmail());
+            ps.setString(3, entity.getTelefone());
+            ps.setString(4, entity.getCPF());
+            ps.setString(5, entity.getSenha()); // Adiciona a senha
 
             ps.execute();
             ps.close();
@@ -31,16 +35,17 @@ public class ClienteDAO {
         }
     }
 
-    public ArrayList<Cliente> listarClientes() {
+    public ArrayList<ClienteDTO> listarClientes() {
         String sql = "SELECT cpf, nome, email, telefone, senha FROM clientes";
-        ArrayList<Cliente> clientes = new ArrayList<>();
+
+        ArrayList<ClienteDTO> clientes = new ArrayList<>();
 
         try (Connection con = SingletonConnection.getCon();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Cliente cliente = new Cliente();
+                ClienteDTO cliente = new ClienteDTO();
                 cliente.setCPF(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
@@ -57,16 +62,16 @@ public class ClienteDAO {
         return clientes;
     }
 
-    public Cliente recuperarCliente(String cpf) {
+    public ClienteDTO recuperarCliente(String cpf) {
         String sql = "SELECT cpf, nome, email, telefone, senha FROM clientes WHERE cpf = ?";
-        Cliente cliente = null;
+        ClienteDTO cliente = null;
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) { 
-                cliente = new Cliente();
+                cliente = new ClienteDTO();
                 cliente.setCPF(rs.getString("cpf"));
                 cliente.setNome(rs.getString("nome"));
                 cliente.setEmail(rs.getString("email"));
@@ -81,15 +86,17 @@ public class ClienteDAO {
         return cliente;
     }
 
-    public boolean atualizarCliente(Cliente cliente) {
+    public boolean atualizarCliente(ClienteDTO cliente) {
         String sql = "UPDATE clientes SET nome = ?, email = ?, telefone = ?, senha = ? WHERE cpf = ?";
+
+        Cliente entity = Mapper.parseObject(cliente, Cliente.class);
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getEmail());
-            ps.setString(3, cliente.getTelefone());
-            ps.setString(4, cliente.getSenha()); // Atualiza a senha
-            ps.setString(5, cliente.getCPF());
+            ps.setString(1, entity.getNome());
+            ps.setString(2, entity.getEmail());
+            ps.setString(3, entity.getTelefone());
+            ps.setString(4, entity.getSenha()); // Atualiza a senha
+            ps.setString(5, entity.getCPF());
             
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0; 

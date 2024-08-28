@@ -1,5 +1,7 @@
 package dao;
 
+import dto.ClienteDTO;
+import mapper.Mapper;
 import models.*;
 import singleton.SingletonConnection;
 
@@ -38,10 +40,10 @@ public class ReservaDAO {
                 Reserva reserva = new Reserva();
                 reserva.setId(rs.getInt("id"));
                 
-                Cliente cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
+                ClienteDTO cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
                 Quarto quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
                 
-                reserva.setCliente(cliente);
+                reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
                 reserva.setQuarto(quarto);
                 
                 reserva.setDataCheckin(rs.getDate("data_checkin"));
@@ -69,10 +71,10 @@ public class ReservaDAO {
                 reserva = new Reserva();
                 reserva.setId(rs.getInt("id"));
                 
-                Cliente cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
+                ClienteDTO cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
                 Quarto quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
                 
-                reserva.setCliente(cliente);
+                reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
                 reserva.setQuarto(quarto);
                 
                 reserva.setDataCheckin(rs.getDate("data_checkin"));
