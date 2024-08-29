@@ -6,8 +6,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class JanelaPadrao extends JFrame {
+public abstract class JanelaPadrao extends JFrame {
     private Botao fechar = new Botao(false);
+    private AdicionarQuartoPainel adicionarQuarto = new AdicionarQuartoPainel();
+    private RemoverQuarto removerQuarto = new RemoverQuarto();
+    private RemoverCliente removerCliente = new RemoverCliente();
+    private AtualizarCliente atualizarCliente = new AtualizarCliente();
+    private InformacoesCliente informacoesCliente = new InformacoesCliente();
+
 
     public JanelaPadrao(){
         setLayout(null);
@@ -16,7 +22,48 @@ public class JanelaPadrao extends JFrame {
 //        setUndecorated(true);
         setSize(1280,720);
         setLocationRelativeTo(null);
+        paineis();
         setVisible(true);
+    }
+
+    private void paineis() {
+        int a = 207, b = 0, c = 1072, d = 720;
+        adicionarQuarto.setBounds(a,b,c,d);
+        removerQuarto.setBounds(a,b,c,d);
+        removerCliente.setBounds(a,b,c,d);
+        atualizarCliente.setBounds(a,b,c,d);
+        informacoesCliente.setBounds(a,b,c,d);
+        add(adicionarQuarto);
+        add(removerQuarto);
+        add(removerCliente);
+        add(atualizarCliente);
+        add(informacoesCliente);
+    }
+
+    public void mostrar(JPanel painel){
+        invisivel();
+        painel.setVisible(true);
+        repaint();
+    }
+
+    public AdicionarQuartoPainel getAdicionarQuarto() {
+        return adicionarQuarto;
+    }
+
+    public RemoverQuarto getRemoverQuarto() {
+        return removerQuarto;
+    }
+
+    public RemoverCliente getRemoverCliente() {
+        return removerCliente;
+    }
+
+    public AtualizarCliente getAtualizarCliente() {
+        return atualizarCliente;
+    }
+
+    public InformacoesCliente getInformacoesCliente() {
+        return informacoesCliente;
     }
 
     private void ouvinte() {
@@ -25,6 +72,14 @@ public class JanelaPadrao extends JFrame {
                 System.exit(0);
             }
         });
+    }
+
+    public void invisivel(){
+        adicionarQuarto.setVisible(false);
+        removerQuarto.setVisible(false);
+        removerCliente.setVisible(false);
+        atualizarCliente.setVisible(false);
+        informacoesCliente.setVisible(false);
     }
 
     public void fechar(int a,int b,int c, int d) {

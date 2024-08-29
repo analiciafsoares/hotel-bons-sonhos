@@ -12,36 +12,43 @@ public class TelaMenuADM extends JanelaPadrao{
     private Botao atualizarCliente = new Botao(false);
     private Botao infomacoesCliente = new Botao(false);
 
+
     public TelaMenuADM(){
         objetos();
         ouvintes();
+        invisivel();
         fundo("menu ADM");
     }
 
     private void ouvintes() {
         adicionarQuarto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                invisivel();
+                mostrar(getAdicionarQuarto());
             }
         });
         removerQuarto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                invisivel();
+                mostrar(getRemoverQuarto());
             }
         });
         removerCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                invisivel();
+                mostrar(getRemoverCliente());
             }
         });
         atualizarCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                invisivel();
+                mostrar(getAtualizarCliente());
             }
         });
         infomacoesCliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                invisivel();
+                mostrar(getInformacoesCliente());
             }
         });
     }
