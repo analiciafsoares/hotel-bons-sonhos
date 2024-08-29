@@ -7,6 +7,14 @@ public class ClienteDTO {
     private String telefone;
     private String CPF;
 
+    public ClienteDTO(String nome, String email, String cpf, String telefone, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.CPF = cpf;
+        this.telefone = telefone;
+        this.senha = senha;
+    }
+
     public String getNome() {
         return nome;
     }

@@ -13,26 +13,22 @@ import java.util.ArrayList;
 
 public class ClienteDAO {
 
-    public void cadastrarCliente(ClienteDTO dto){
+    public void cadastrarCliente(ClienteDTO dto) throws SQLException{
         Cliente entity = Mapper.parseObject(dto, Cliente.class);
 
         String sql = "INSERT INTO clientes (NOME, EMAIL, TELEFONE, CPF, SENHA) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
 
-        try {
             ps = SingletonConnection.getCon().prepareStatement(sql);
             ps.setString(1, entity.getNome());
             ps.setString(2, entity.getEmail());
             ps.setString(3, entity.getTelefone());
             ps.setString(4, entity.getCPF());
-            ps.setString(5, entity.getSenha()); // Adiciona a senha
+            ps.setString(5, entity.getSenha()); 
 
             ps.execute();
             ps.close();
             System.out.println("Cliente cadastrado com sucesso");
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
     }
 
     public ArrayList<ClienteDTO> listarClientes() {
@@ -45,12 +41,7 @@ public class ClienteDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                ClienteDTO cliente = new ClienteDTO();
-                cliente.setCPF(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setSenha(rs.getString("senha"));
+                ClienteDTO cliente = new ClienteDTO(rs.getString("nome"), rs.getString("email"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("senha"));
         
                 clientes.add(cliente);
             }
@@ -62,7 +53,7 @@ public class ClienteDAO {
         return clientes;
     }
 
-    public ClienteDTO recuperarCliente(String cpf) {
+    public ClienteDTO recuperarCliente(String cpf) throws SQLException{
         String sql = "SELECT cpf, nome, email, telefone, senha FROM clientes WHERE cpf = ?";
         ClienteDTO cliente = null;
     
@@ -71,12 +62,7 @@ public class ClienteDAO {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) { 
-                cliente = new ClienteDTO();
-                cliente.setCPF(rs.getString("cpf"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setSenha(rs.getString("senha")); // Recupera a senha
+                cliente = new ClienteDTO(rs.getString("nome"), rs.getString("email"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("senha"));
             }
     
         } catch(SQLException e){
