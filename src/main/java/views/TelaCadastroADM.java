@@ -18,6 +18,7 @@ public class TelaCadastroADM extends JanelaPadrao{
     public TelaCadastroADM(){
         objetos();
         ouvintes();
+        invisivel();
         fundo("Cadastro Admin");
     }
 

@@ -19,6 +19,7 @@ public class TelaLogin extends JanelaPadrao{
     public TelaLogin(){
         objetos();
         ouvintes();
+        invisivel();
         fundo("login");
     }
 
