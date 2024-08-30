@@ -19,7 +19,6 @@ public class TelaLogin extends JanelaPadrao{
     public TelaLogin(){
         objetos();
         ouvintes();
-        invisivel();
         fundo("login");
     }
 
@@ -45,8 +44,8 @@ public class TelaLogin extends JanelaPadrao{
 
     private void objetos() {
         botao.setBounds(520,530,241,69);
-        usuario.setBounds(491,235,297,49);
-        senha.setBounds(491,323,297,49);
+        usuario.setBounds(502,235,277,49);
+        senha.setBounds(502,323,277,49);
         cadastrar.setBounds(676,377,106,39);
         add(botao);
         add(usuario);

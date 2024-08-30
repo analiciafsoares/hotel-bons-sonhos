@@ -23,6 +23,7 @@ public abstract class JanelaPadrao extends JFrame {
         setSize(1280,720);
         setLocationRelativeTo(null);
         paineis();
+        invisivel();
         setVisible(true);
     }
 
@@ -40,10 +41,14 @@ public abstract class JanelaPadrao extends JFrame {
         add(informacoesCliente);
     }
 
-    public void mostrar(JPanel painel){
-        invisivel();
-        painel.setVisible(true);
-        repaint();
+    public void mostrar(Botao botao,JPanel painel){
+        botao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                invisivel();
+                painel.setVisible(true);
+                repaint();
+            }
+        });
     }
 
     public AdicionarQuartoPainel getAdicionarQuarto() {

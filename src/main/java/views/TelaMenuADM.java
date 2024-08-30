@@ -21,36 +21,13 @@ public class TelaMenuADM extends JanelaPadrao{
     }
 
     private void ouvintes() {
-        adicionarQuarto.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                invisivel();
-                mostrar(getAdicionarQuarto());
-            }
-        });
-        removerQuarto.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                invisivel();
-                mostrar(getRemoverQuarto());
-            }
-        });
-        removerCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                invisivel();
-                mostrar(getRemoverCliente());
-            }
-        });
-        atualizarCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                invisivel();
-                mostrar(getAtualizarCliente());
-            }
-        });
-        infomacoesCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                invisivel();
-                mostrar(getInformacoesCliente());
-            }
-        });
+        mostrar(adicionarQuarto,getAdicionarQuarto());
+        mostrar(removerQuarto,getRemoverQuarto());
+        mostrar(removerCliente,getRemoverCliente());
+        mostrar(atualizarCliente,getAtualizarCliente());
+        mostrar(infomacoesCliente,getInformacoesCliente());
+
+
     }
 
     private void objetos() {

@@ -18,7 +18,6 @@ public class TelaCadastrarClientes extends JanelaPadrao{
     public TelaCadastrarClientes(){
         objetos();
         ouvintes();
-        invisivel();
         fundo("Cadastro cliente");
     }
 
