@@ -3,7 +3,7 @@ package dto;
 import java.sql.Date;
 
 import models.Cliente;
-import models.Quarto;
+import models.quarto.Quarto;
 
 public class ReservaDTO {
     private int id;

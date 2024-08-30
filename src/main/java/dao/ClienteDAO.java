@@ -1,9 +1,8 @@
 package dao;
 
 import dto.ClienteDTO;
-import mapper.Mapper;
+import utils.mapper.Mapper;
 import models.Cliente;
-import singleton.SingletonConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

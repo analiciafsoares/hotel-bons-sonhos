@@ -1,7 +1,8 @@
 package dao;
 
-import models.Quarto;
-import singleton.SingletonConnection;
+import dto.QuartoDTO;
+import utils.mapper.Mapper;
+import models.quarto.Quarto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class QuartoDAO {
-    public void cadastrarQuarto(Quarto quarto){
+    public void cadastrarQuarto(QuartoDTO quarto){
+        Quarto entity = Mapper.parseObject(quarto, Quarto.class);
+
         String sql = "INSERT INTO quartos (ID, TIPO, PRECO_DIARIA, NUMERO, ANDAR) VALUES (?,?,?,?,?)";
         PreparedStatement ps = null;
 
@@ -30,16 +33,16 @@ public class QuartoDAO {
         }
     }
 
-    public ArrayList<Quarto> listarQuartos() {
+    public ArrayList<QuartoDTO> listarQuartos() {
         String sql = "SELECT id, tipo, preco_diaria, numero, andar FROM quartos";
-        ArrayList<Quarto> quartos = new ArrayList<>();
+        ArrayList<QuartoDTO> quartos = new ArrayList<>();
 
         try (Connection con = SingletonConnection.getCon();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Quarto quarto = new Quarto();
+                QuartoDTO quarto = new QuartoDTO();
                 quarto.setCodigoQuarto(rs.getInt("id"));
                 quarto.setTipo(rs.getString("tipo"));
                 quarto.setPrecoDiaria(rs.getDouble("preco_diaria"));
@@ -56,16 +59,16 @@ public class QuartoDAO {
         return quartos;
     }
 
-    public Quarto recuperarQuarto(int id) {
+    public QuartoDTO recuperarQuarto(int id) {
         String sql = "SELECT id, tipo, preco_diaria, numero, andar FROM quartos WHERE id = ?";
-        Quarto quarto = null;
+        QuartoDTO quarto = null;
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) { 
-                quarto = new Quarto();
+                quarto = new QuartoDTO();
                 quarto.setCodigoQuarto(rs.getInt("id"));
                 quarto.setTipo(rs.getString("tipo"));
                 quarto.setPrecoDiaria(rs.getDouble("preco_diaria"));
@@ -80,7 +83,9 @@ public class QuartoDAO {
         return quarto;
     }
 
-    public boolean atualizarQuarto(Quarto quarto) {
+    public boolean atualizarQuarto(QuartoDTO quarto) {
+        Quarto entity = Mapper.parseObject(quarto, Quarto.class);
+
         String sql = "UPDATE quartos SET tipo = ?, preco_diaria = ?, numero = ?, andar = ? WHERE id = ?";
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
