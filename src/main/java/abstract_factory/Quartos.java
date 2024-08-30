@@ -1,4 +1,5 @@
 package abstract_factory;
+import java.util.List;
 
 import models.Quarto;
 
@@ -11,6 +12,8 @@ public abstract class Quartos extends Quarto{
         this.setTipo(tipo);
     }
 
-    public abstract String getDescricao();
+    public abstract String getDescricaoBasica();
+
+    public abstract List<String> getMoveis();
 
 }
