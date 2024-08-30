@@ -9,7 +9,7 @@ public abstract class PainelPadrao extends JPanel {
         setLayout(null);
     }
     public void fundo(String foto) {
-        ImageIcon imagem = new ImageIcon("src/main/java/imagens/"+foto+".png");
+        ImageIcon imagem = new ImageIcon("src/main/java/utils/imagens/"+foto+".png");
         JLabel label = new JLabel();
         label.setIcon(imagem);
         label.setBounds(0,0,getWidth(),getHeight());
