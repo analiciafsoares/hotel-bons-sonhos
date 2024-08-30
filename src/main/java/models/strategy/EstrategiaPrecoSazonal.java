@@ -1,4 +1,4 @@
-package strategy;
+package models.strategy;
 
 public class EstrategiaPrecoSazonal implements IEstrategiaDePrecos {
 

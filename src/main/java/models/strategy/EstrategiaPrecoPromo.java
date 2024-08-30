@@ -1,4 +1,4 @@
-package strategy;
+package models.strategy;
 
 public class EstrategiaPrecoPromo {
     public double calcularPreco(double precoBase, int numeroDeNoites) {

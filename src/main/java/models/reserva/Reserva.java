@@ -1,4 +1,7 @@
-package models;
+package models.reserva;
+
+import models.Cliente;
+import models.quarto.Quarto;
 
 import java.sql.Date;
 

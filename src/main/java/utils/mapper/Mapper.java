@@ -1,4 +1,4 @@
-package mapper;
+package utils.mapper;
 
 import org.modelmapper.ModelMapper;
 

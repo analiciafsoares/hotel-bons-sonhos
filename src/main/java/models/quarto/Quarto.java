@@ -1,4 +1,4 @@
-package models;
+package models.quarto;
 
 public class Quarto {
     private int codigoQuarto;

@@ -1,7 +1,7 @@
-package abstract_factory;
+package models.quarto;
 import java.util.List;
 
-import models.Quarto;
+import models.quarto.Quarto;
 
 public abstract class Quartos extends Quarto{
 
