@@ -1,7 +1,7 @@
 package controller;
 
-import dao.ClienteDAO;
-import dto.ClienteDTO;
+import dao.UsuarioDAO;
+import dto.UsuarioDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,19 +9,20 @@ import java.util.ArrayList;
 public class LoginController {
 
 
-    public static ClienteDTO verificarLogin(ClienteDTO dto){
-        ArrayList<ClienteDTO> clientes = new ClienteDAO().listarClientes();
-        for (ClienteDTO c: clientes){
-            if (c.getEmail().equals(dto.getEmail()) && c.getSenha().equals(dto.getSenha())){
-                return c;
+    public static UsuarioDTO verificarLogin(UsuarioDTO dto) {
+        ArrayList<UsuarioDTO> usuarios = new UsuarioDAO().listarTodosUsuarios();
+        
+        for (UsuarioDTO u : usuarios) {
+            if (u.getEmail().equals(dto.getEmail()) && u.getSenha().equals(dto.getSenha())) {
+                return u;
             }
         }
         return null;
     }
 
-    public static ClienteDTO cadastrarCliente(ClienteDTO c) {
+    public static UsuarioDTO cadastrarCliente(UsuarioDTO c) {
         try {
-            new ClienteDAO().cadastrarCliente(c);
+            new UsuarioDAO().cadastrarUsuario(c, false);
         } catch (SQLException e) {
             c = null;
             System.out.println(e.getMessage());

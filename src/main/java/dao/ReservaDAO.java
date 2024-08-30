@@ -1,8 +1,8 @@
 package dao;
 
-import dto.ClienteDTO;
 import dto.QuartoDTO;
 import dto.ReservaDTO;
+import dto.UsuarioDTO;
 import utils.mapper.Mapper;
 import models.*;
 import models.quarto.Quarto;
@@ -45,7 +45,7 @@ public class ReservaDAO {
                 ReservaDTO reserva = new ReservaDTO();
                 reserva.setId(rs.getInt("id"));
                 
-                ClienteDTO cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
+                UsuarioDTO cliente = new UsuarioDAO().recuperarUsuario(rs.getString("id_cliente"));
                 QuartoDTO quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
 
                 reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
@@ -76,7 +76,7 @@ public class ReservaDAO {
                 reserva = new ReservaDTO();
                 reserva.setId(rs.getInt("id"));
                 
-                ClienteDTO cliente = new ClienteDAO().recuperarCliente(rs.getString("id_cliente"));
+                UsuarioDTO cliente = new UsuarioDAO().recuperarUsuario(rs.getString("id_cliente"));
                 QuartoDTO quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
                 
                 reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
