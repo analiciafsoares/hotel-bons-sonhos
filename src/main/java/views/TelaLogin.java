@@ -24,14 +24,15 @@ public class TelaLogin extends JanelaPadrao{
 
     private void ouvintes() {
         botao.addActionListener(new ActionListener() {
+            ClienteDTO dto = new ClienteDTO(null, usuario.getText(), null, null, new String(senha.getPassword()));
+
             public void actionPerformed(ActionEvent e) {
-                ClienteDTO c = LoginController.verificarLogin(usuario.getText(), new String(senha.getPassword()).trim());
+                ClienteDTO c = LoginController.verificarLogin(dto);
                 if (c != null){
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + c.getNome() + "!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Email e/ou senha incorretos!");
                 }
-
             }
         });
 
