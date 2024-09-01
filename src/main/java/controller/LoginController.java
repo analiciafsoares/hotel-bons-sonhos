@@ -1,6 +1,7 @@
 package controller;
 
 import dao.UsuarioDAO;
+import dto.AdmDTO;
 import dto.UsuarioDTO;
 
 import java.sql.SQLException;
@@ -28,6 +29,16 @@ public class LoginController {
             System.out.println(e.getMessage());
         }
         return c;
+    }
+
+    public static AdmDTO cadastrarAdmin(AdmDTO a) {
+        try {
+            new UsuarioDAO().cadastrarUsuario(a, false);
+        } catch (SQLException e) {
+            a = null;
+            System.out.println(e.getMessage());
+        }
+        return a;
     }
 
 }

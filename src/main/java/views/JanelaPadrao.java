@@ -51,6 +51,10 @@ public abstract class JanelaPadrao extends JFrame {
         });
     }
 
+    public boolean verificarSenhas(String senha, String confirmarSenha) {
+        return senha.equals(confirmarSenha);
+    }
+
     public AdicionarQuartoPainel getAdicionarQuarto() {
         return adicionarQuarto;
     }

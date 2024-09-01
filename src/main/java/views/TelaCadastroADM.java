@@ -7,13 +7,16 @@ import views.ObjetosTelas.EspacoTexto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import controller.LoginController;
+import dto.AdmDTO;
+
 public class TelaCadastroADM extends JanelaPadrao{
     private EspacoTexto usuario = new EspacoTexto();
     private EspacoSenha senha = new EspacoSenha();
     private EspacoSenha confirmarSenha = new EspacoSenha();
     private Botao cadastrar = new Botao(false);
-
-
 
     public TelaCadastroADM(){
         objetos();
@@ -28,6 +31,22 @@ public class TelaCadastroADM extends JanelaPadrao{
                 String pegarSenha = String.valueOf(senha.getPassword());
                 String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
 
+                if (!verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
+                    return;
+                }
+
+                String cpf = JOptionPane.showInputDialog("Digite seu cpf:");
+
+                AdmDTO dto = new AdmDTO(null, pegarUsuario, cpf, null, pegarSenha);
+                AdmDTO adm = LoginController.cadastrarAdmin(dto);
+                if (adm != null) {
+                    JOptionPane.showMessageDialog(null, "Bem-vindo, " + adm.getNome() + "! Você foi cadastrado com sucesso");
+                    new TelaMenuADM();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar administrador!");
+                }
 
             }
         });

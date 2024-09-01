@@ -4,6 +4,8 @@ import dto.AdmDTO;
 import dto.ClienteDTO;
 import dto.UsuarioDTO;
 import utils.mapper.Mapper;
+import models.ADM;
+import models.Cliente;
 import models.Usuario;
 
 import java.sql.Connection;
@@ -15,7 +17,12 @@ import java.util.ArrayList;
 public class UsuarioDAO {
 
     public void cadastrarUsuario(UsuarioDTO dto, boolean isAdmin) throws SQLException {
-        Usuario entity = Mapper.parseObject(dto, Usuario.class);
+        Usuario entity;
+        if (dto instanceof AdmDTO) {
+            entity = Mapper.parseObject(dto, ADM.class);
+        } else {
+            entity = Mapper.parseObject(dto, Cliente.class);
+        }
 
         String sql = "INSERT INTO usuarios (nome, email, telefone, CPF, senha, isAdmin) VALUES (?,?,?,?,?,?)";
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
@@ -119,8 +126,14 @@ public class UsuarioDAO {
     }
 
     public boolean atualizarUsuario(UsuarioDTO usuario) {
+        Usuario entity;
+        if (usuario instanceof AdmDTO) {
+            entity = Mapper.parseObject(usuario, ADM.class);
+        } else {
+            entity = Mapper.parseObject(usuario, Cliente.class); 
+        }
+        
         String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, senha = ?, isAdmin = ? WHERE CPF = ?";
-        Usuario entity = Mapper.parseObject(usuario, Usuario.class);
 
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, entity.getNome());
