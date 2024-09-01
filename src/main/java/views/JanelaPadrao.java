@@ -1,5 +1,6 @@
 package views;
 
+import dao.UsuarioDAO;
 import views.ObjetosTelas.Botao;
 
 import javax.swing.*;

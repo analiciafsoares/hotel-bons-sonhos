@@ -1,6 +1,7 @@
 package views;
 
 import controller.LoginController;
+import dao.UsuarioDAO;
 import dto.ClienteDTO;
 import dto.UsuarioDTO;
 import views.ObjetosTelas.Botao;
@@ -38,6 +39,11 @@ public class TelaLogin extends JanelaPadrao{
 
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if(new UsuarioDAO().listarTodosUsuarios().size() > 0){
+                    new TelaCadastrarClientes();
+                }else{
+                    new TelaCadastroADM();
+                }
                 dispose();
             }
         });

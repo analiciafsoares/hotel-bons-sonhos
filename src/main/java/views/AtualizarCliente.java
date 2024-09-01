@@ -19,7 +19,6 @@ public class AtualizarCliente extends PainelPadrao{
     private Botao lupa = new Botao(false);
 
 
-
     public AtualizarCliente(){
         objetos();
         ouvintes();

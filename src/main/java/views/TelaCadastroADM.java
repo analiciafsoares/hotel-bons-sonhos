@@ -13,7 +13,10 @@ import controller.LoginController;
 import dto.AdmDTO;
 
 public class TelaCadastroADM extends JanelaPadrao{
-    private EspacoTexto usuario = new EspacoTexto();
+    private EspacoTexto nome = new EspacoTexto();
+    private EspacoTexto CPF = new EspacoTexto();
+    private EspacoTexto email = new EspacoTexto();
+    private EspacoTexto telefone = new EspacoTexto();
     private EspacoSenha senha = new EspacoSenha();
     private EspacoSenha confirmarSenha = new EspacoSenha();
     private Botao cadastrar = new Botao(false);
@@ -27,18 +30,19 @@ public class TelaCadastroADM extends JanelaPadrao{
     private void ouvintes() {
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String pegarUsuario = usuario.getText();
+                String pegarNome = nome.getText();
                 String pegarSenha = String.valueOf(senha.getPassword());
                 String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
+                String cpf = CPF.getText();
+                String pegarEmail = email.getText();
+                String pegarTelefone = telefone.getText();
 
                 if (!verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
                     JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
                     return;
                 }
 
-                String cpf = JOptionPane.showInputDialog("Digite seu cpf:");
-
-                AdmDTO dto = new AdmDTO(null, pegarUsuario, cpf, null, pegarSenha);
+                AdmDTO dto = new AdmDTO(pegarNome,pegarEmail, cpf, pegarTelefone, pegarSenha);
                 AdmDTO adm = LoginController.cadastrarAdmin(dto);
                 if (adm != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + adm.getNome() + "! Você foi cadastrado com sucesso");
@@ -52,16 +56,22 @@ public class TelaCadastroADM extends JanelaPadrao{
     }
 
     private void objetos() {
-        int a = 529, c = 260,d = 49;
+        int a = 463, c = 378,d = 36;
 
-        usuario.setBounds(a,317,c,d);
-        senha.setBounds(a,407,c,d);
-        confirmarSenha.setBounds(a,497,c,d);
+        nome.setBounds(a,206,c,d);
+        CPF.setBounds(a,274,c,d);
+        email.setBounds(a,343,c,d);
+        telefone.setBounds(a,411,c,d);
+        senha.setBounds(a,479,c,d);
+        confirmarSenha.setBounds(a,546,c,d);
         cadastrar.setBounds(529,573,220,64);
-        add(usuario);
+        add(nome);
         add(senha);
         add(confirmarSenha);
         add(cadastrar);
+        add(CPF);
+        add(email);
+        add(telefone);
     }
 
     public static void main(String[] args) {
