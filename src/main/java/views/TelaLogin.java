@@ -39,7 +39,7 @@ public class TelaLogin extends JanelaPadrao{
 
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(new UsuarioDAO().listarTodosUsuarios().size() > 0){
+                if(LoginController.verificarUsuarios()){
                     new TelaCadastrarClientes();
                 }else{
                     new TelaCadastroADM();

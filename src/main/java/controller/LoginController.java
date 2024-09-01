@@ -42,5 +42,9 @@ public class LoginController {
         return a;
     }
 
+    public static boolean verificarUsuarios() {
+        return new UsuarioDAO().listarTodosUsuarios().size() > 0;
+    }
+
 }
 
