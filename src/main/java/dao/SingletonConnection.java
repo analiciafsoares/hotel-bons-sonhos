@@ -7,7 +7,9 @@ import java.sql.SQLException;
 public class SingletonConnection {
     private static Connection conn;
 
-    static {
+    private SingletonConnection() {}
+
+    public static Connection getCon() {
         try {
             String USUARIO = System.getenv("USUARIO");
             String SENHA = System.getenv("SENHA");
@@ -21,9 +23,6 @@ public class SingletonConnection {
             System.out.println("Erro: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    public static Connection getCon() {
         return conn;
     }
 }

@@ -78,7 +78,7 @@ public class UsuarioDAO {
         ArrayList<UsuarioDTO> usuarios = new ArrayList<>();
 
         try (Connection con = SingletonConnection.getCon();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setBoolean(1, !apenasClientes); 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -100,7 +100,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public UsuarioDTO recuperarUsuario(String cpf) throws SQLException {
+    public UsuarioDTO recuperarUsuario(String cpf) {
         String sql = "SELECT CPF, nome, email, telefone, senha, isAdmin FROM usuarios WHERE CPF = ?";
         UsuarioDTO usuario = null;
 
@@ -124,6 +124,7 @@ public class UsuarioDAO {
 
         return usuario;
     }
+    
 
     public boolean atualizarUsuario(UsuarioDTO usuario) {
         Usuario entity;
@@ -133,7 +134,7 @@ public class UsuarioDAO {
             entity = Mapper.parseObject(usuario, Cliente.class); 
         }
 
-        String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, senha = ?, isAdmin = ? WHERE CPF = ?";
+        String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, senha = ?, isAdmin = ? WHERE cpf = ?";
 
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, entity.getNome());
@@ -153,7 +154,7 @@ public class UsuarioDAO {
 
     public void removerUsuario(String cpf) {
         String checkSql = "SELECT COUNT(*) FROM reservas WHERE id_cliente = ?";
-        String deleteSql = "DELETE FROM usuarios WHERE CPF = ? AND isAdmin = FALSE";
+        String deleteSql = "DELETE FROM usuarios WHERE cpf = ? AND isAdmin = FALSE";
 
         try (PreparedStatement checkPs = SingletonConnection.getCon().prepareStatement(checkSql)) {
             checkPs.setString(1, cpf);
