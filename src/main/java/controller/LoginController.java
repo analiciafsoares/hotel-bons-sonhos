@@ -2,6 +2,7 @@ package controller;
 
 import dao.UsuarioDAO;
 import dto.AdmDTO;
+import dto.ClienteDTO;
 import dto.UsuarioDTO;
 
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class LoginController {
         return null;
     }
 
-    public static UsuarioDTO cadastrarCliente(UsuarioDTO c) {
+    public static ClienteDTO cadastrarCliente(ClienteDTO c) {
         try {
             new UsuarioDAO().cadastrarUsuario(c, false);
         } catch (SQLException e) {

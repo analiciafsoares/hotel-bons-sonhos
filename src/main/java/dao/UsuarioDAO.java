@@ -31,7 +31,7 @@ public class UsuarioDAO {
             ps.setString(3, entity.getTelefone());
             ps.setString(4, entity.getCPF());
             ps.setString(5, entity.getSenha());
-            ps.setBoolean(6, isAdmin);
+            ps.setBoolean(6, entity.isAdmin());
             ps.executeUpdate();
             System.out.println("Usuário cadastrado com sucesso");
         }
@@ -132,7 +132,7 @@ public class UsuarioDAO {
         } else {
             entity = Mapper.parseObject(usuario, Cliente.class); 
         }
-        
+
         String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, senha = ?, isAdmin = ? WHERE CPF = ?";
 
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {

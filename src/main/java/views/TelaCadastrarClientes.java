@@ -7,6 +7,11 @@ import views.ObjetosTelas.EspacoTexto;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import controller.LoginController;
+import dto.ClienteDTO;
+
 public class TelaCadastrarClientes extends JanelaPadrao{
     private EspacoTexto usuario = new EspacoTexto();
     private EspacoSenha senha = new EspacoSenha();
@@ -42,7 +47,25 @@ public class TelaCadastrarClientes extends JanelaPadrao{
     private void ouvintes() {
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                String pegarUsuario = usuario.getText();
+                String pegarSenha = String.valueOf(senha.getPassword());
+                String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
+
+                if (!verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
+                    return;
+                }
+
+                String cpf = JOptionPane.showInputDialog("Digite seu cpf:");
+
+                ClienteDTO dto = new ClienteDTO(null, pegarUsuario, cpf, null, pegarSenha);
+                ClienteDTO cliente = LoginController.cadastrarCliente(dto);
+                if (cliente != null) {
+                    JOptionPane.showMessageDialog(null, "Bem-vindo, " + cliente.getNome() + "! Você foi cadastrado com sucesso");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar cliente!");
+                }
             }
         });
 

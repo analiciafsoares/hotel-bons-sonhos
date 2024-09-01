@@ -47,7 +47,6 @@ public class TelaCadastroADM extends JanelaPadrao{
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível cadastrar administrador!");
                 }
-
             }
         });
     }
