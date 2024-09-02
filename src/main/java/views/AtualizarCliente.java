@@ -3,9 +3,13 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
+import controller.LoginController;
+import dto.UsuarioDTO;
 
 public class AtualizarCliente extends PainelPadrao{
     private EspacoTexto nome = new EspacoTexto();
@@ -28,9 +32,23 @@ public class AtualizarCliente extends PainelPadrao{
     private void ouvintes() {
         atualizar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String pegarNome = nome.getText();
+                String pegarSenha = senha.getText();
+                String pegarCPF = cpf.getText();
+                String pegarEmail = email.getText();
+                String pegarTelefone = telefone.getText();
 
+                UsuarioDTO dto = new UsuarioDTO(pegarNome, pegarEmail, pegarCPF, pegarTelefone, pegarSenha, false);
+
+                if (LoginController.atualizarCliente(dto)){
+                    JOptionPane.showMessageDialog(null, "Cliente atualizado!");
+                } else {
+                    JOptionPane.showMessageDialog(null,"Erro", "Não foi possível atualizar", JOptionPane.ERROR_MESSAGE);
+                }
+                return;
             }
         });
+
         limpar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nome.setText("");
@@ -41,9 +59,23 @@ public class AtualizarCliente extends PainelPadrao{
 
             }
         });
+
         lupa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                UsuarioDTO cliente = LoginController.resgatarCliente(pesquisar.getText());
+                if (cliente != null){
+                    nome.setText(cliente.getNome());
+                    email.setText(cliente.getEmail());
+                    telefone.setText(cliente.getTelefone());
+                    cpf.setText(cliente.getCPF());
+                    senha.setText(cliente.getSenha());
+                    repaint();
+                } else {
+                    JOptionPane.showMessageDialog(null,"Não foi possível encontrar o CPF digitado", "Cliente não encontrado", JOptionPane.ERROR_MESSAGE);
+                    pesquisar.setText("");
+                    limpar.doClick();
+                    return;
+                }
             }
         });
     }

@@ -31,6 +31,10 @@ public class TelaLogin extends JanelaPadrao{
                 UsuarioDTO usuario = LoginController.verificarLogin(dto);
                 if (usuario != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + usuario.getNome() + "!");
+                    if (usuario.isAdmin()) {
+                        new TelaMenuADM();
+                    }
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Email e/ou senha incorretos!");
                 }

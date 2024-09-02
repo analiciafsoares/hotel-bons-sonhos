@@ -46,5 +46,16 @@ public class LoginController {
         return new UsuarioDAO().listarTodosUsuarios().size() > 0;
     }
 
+    public static UsuarioDTO resgatarCliente(String cpf) {
+        UsuarioDTO cliente;
+        cliente = new UsuarioDAO().recuperarUsuario(cpf);
+
+        return cliente;
+    }
+
+    public static boolean atualizarCliente(UsuarioDTO cliente) {
+        return new UsuarioDAO().atualizarUsuario(cliente);
+    }
+
 }
 
