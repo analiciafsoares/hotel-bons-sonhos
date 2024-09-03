@@ -1,10 +1,8 @@
 package views;
 
 import views.ObjetosTelas.Botao;
-import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,11 +32,12 @@ public class AdicionarQuartoPainel extends PainelPadrao{
             int andarQuarto = Integer.parseInt(andar.getText());
             double precoDiariaQuarto = Double.parseDouble(precoDiaria.getText());
             
-            
-            QuartoController.criarQuarto(numeroQuarto, tipoQuarto, andarQuarto, precoDiariaQuarto);
-
-            
-            JOptionPane.showMessageDialog(null, "O quarto foi adicionado. ");//mensagem genérica, podem mexer a vontade.:)
+            try {
+                QuartoController.criarQuarto(numeroQuarto, tipoQuarto, andarQuarto, precoDiariaQuarto);
+                JOptionPane.showMessageDialog(null, "O quarto foi adicionado. ");
+            } catch (IllegalArgumentException i) {
+                JOptionPane.showMessageDialog(null, "Digite uma categoria de quarto válida e tente novamente", "Categoria inválida", JOptionPane.ERROR_MESSAGE);
+            }
         }
     });
 }

@@ -28,16 +28,18 @@ public class QuartoController {
         }
 
         // Criando um DTO  com o quarto
-        QuartoDTO quartoDTO = new QuartoDTO();
-        quartoDTO.setCodigoQuarto(quarto.getCodigoQuarto());
-        quartoDTO.setNumero(quarto.getNumero());
-        quartoDTO.setAndar(quarto.getAndar());
-        quartoDTO.setPrecoDiaria(quarto.getPrecoDiaria());
-        quartoDTO.setTipo(quarto.getTipo());
-        quartoDTO.setCapacidadeMaxima(quarto.getCapacidadeMaxima());
-
-        // Salvando o quarto no Banco de Dados
-        QuartoDAO quartoDAO = new QuartoDAO();
-        quartoDAO.cadastrarQuarto(quartoDTO);
+        if (quarto != null) {
+            QuartoDTO quartoDTO = new QuartoDTO();
+            quartoDTO.setCodigoQuarto(quarto.getCodigoQuarto());
+            quartoDTO.setNumero(quarto.getNumero());
+            quartoDTO.setAndar(quarto.getAndar());
+            quartoDTO.setPrecoDiaria(quarto.getPrecoDiaria());
+            quartoDTO.setTipo(quarto.getTipo());
+            quartoDTO.setCapacidadeMaxima(quarto.getCapacidadeMaxima());
+    
+            // Salvando o quarto no Banco de Dados
+            QuartoDAO quartoDAO = new QuartoDAO();
+            quartoDAO.cadastrarQuarto(quartoDTO);
+        }
     }
 }
