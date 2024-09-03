@@ -8,6 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import controller.QuartoController;
+
 public class AdicionarQuartoPainel extends PainelPadrao{
     private EspacoTexto numero = new EspacoTexto();
     private EspacoTexto categoria = new EspacoTexto();
@@ -22,12 +26,22 @@ public class AdicionarQuartoPainel extends PainelPadrao{
     }
 
     private void ouvinte() {
-        adicionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+    adicionar.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            
+            int numeroQuarto = Integer.parseInt(numero.getText());
+            String tipoQuarto = categoria.getText();
+            int andarQuarto = Integer.parseInt(andar.getText());
+            double precoDiariaQuarto = Double.parseDouble(precoDiaria.getText());
+            
+            
+            QuartoController.criarQuarto(numeroQuarto, tipoQuarto, andarQuarto, precoDiariaQuarto);
 
-            }
-        });
-    }
+            
+            JOptionPane.showMessageDialog(null, "O quarto foi adicionado. ");//mensagem genérica, podem mexer a vontade.:)
+        }
+    });
+}
 
     private void objetos() {
         int a = 363, c = 345,d = 57;
