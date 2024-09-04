@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import controller.LoginController;
+import controller.UsuarioController;
 import dto.ClienteDTO;
 
 public class TelaCadastrarClientes extends JanelaPadrao{
@@ -70,7 +70,7 @@ public class TelaCadastrarClientes extends JanelaPadrao{
 
 
                 ClienteDTO dto = new ClienteDTO(pegarNome, pegarEmail, cpf, pegarTelefone, pegarSenha);
-                ClienteDTO cliente = LoginController.cadastrarCliente(dto);
+                ClienteDTO cliente = UsuarioController.cadastrarCliente(dto);
                 if (cliente != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + cliente.getNome() + "! Você foi cadastrado com sucesso");
                     dispose();

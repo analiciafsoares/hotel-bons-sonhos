@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import controller.LoginController;
+import controller.UsuarioController;
 import dto.UsuarioDTO;
 
 public class AtualizarCliente extends PainelPadrao{
@@ -40,7 +40,7 @@ public class AtualizarCliente extends PainelPadrao{
 
                 UsuarioDTO dto = new UsuarioDTO(pegarNome, pegarEmail, pegarCPF, pegarTelefone, pegarSenha, false);
 
-                if (LoginController.atualizarCliente(dto)){
+                if (UsuarioController.atualizarCliente(dto)){
                     JOptionPane.showMessageDialog(null, "Cliente atualizado!");
                 } else {
                     JOptionPane.showMessageDialog(null,"Erro", "Não foi possível atualizar", JOptionPane.ERROR_MESSAGE);
@@ -62,7 +62,7 @@ public class AtualizarCliente extends PainelPadrao{
 
         lupa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                UsuarioDTO cliente = LoginController.resgatarCliente(pesquisar.getText());
+                UsuarioDTO cliente = UsuarioController.resgatarCliente(pesquisar.getText());
                 if (cliente != null){
                     nome.setText(cliente.getNome());
                     email.setText(cliente.getEmail());

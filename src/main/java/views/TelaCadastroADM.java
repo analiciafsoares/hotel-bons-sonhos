@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import controller.LoginController;
+import controller.UsuarioController;
 import dto.AdmDTO;
 
 public class TelaCadastroADM extends JanelaPadrao{
@@ -43,7 +43,7 @@ public class TelaCadastroADM extends JanelaPadrao{
                 }
 
                 AdmDTO dto = new AdmDTO(pegarNome,pegarEmail, cpf, pegarTelefone, pegarSenha);
-                AdmDTO adm = LoginController.cadastrarAdmin(dto);
+                AdmDTO adm = UsuarioController.cadastrarAdmin(dto);
                 if (adm != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + adm.getNome() + "! Você foi cadastrado com sucesso");
                     new TelaMenuADM();

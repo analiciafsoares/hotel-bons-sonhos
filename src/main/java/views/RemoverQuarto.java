@@ -31,7 +31,7 @@ public class RemoverQuarto extends PainelPadrao{
                 if (QuartoController.removerQuarto(numeroQuarto, tipoQuarto, andarQuarto)) {
                     JOptionPane.showMessageDialog(null, "Quarto removido com sucesso.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Quarto não encontrado", "Erro", JOptionPane.ERROR);
+                    JOptionPane.showMessageDialog(null, "Quarto não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

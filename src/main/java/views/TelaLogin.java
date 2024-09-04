@@ -1,6 +1,6 @@
 package views;
 
-import controller.LoginController;
+import controller.UsuarioController;
 import dao.UsuarioDAO;
 import dto.ClienteDTO;
 import dto.UsuarioDTO;
@@ -28,7 +28,7 @@ public class TelaLogin extends JanelaPadrao{
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 UsuarioDTO dto = new UsuarioDTO(null, usuario.getText(), null, null, new String(senha.getPassword()), false);
-                UsuarioDTO usuario = LoginController.verificarLogin(dto);
+                UsuarioDTO usuario = UsuarioController.verificarLogin(dto);
                 if (usuario != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + usuario.getNome() + "!");
                     if (usuario.isAdmin()) {
@@ -43,7 +43,7 @@ public class TelaLogin extends JanelaPadrao{
 
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(LoginController.verificarUsuarios()){
+                if(UsuarioController.verificarUsuarios()){
                     new TelaCadastrarClientes();
                 }else{
                     new TelaCadastroADM();
