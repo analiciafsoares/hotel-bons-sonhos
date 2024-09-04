@@ -103,7 +103,23 @@ public class QuartoDAO {
     
         return false;
     }
-    
+
+    public int buscarIdQuarto(int numero, String categoria, int andar) {
+        String sql = "SELECT id FROM quartos WHERE numero = ? AND tipo = ? AND andar = ?";
+        try (Connection con = SingletonConnection.getCon();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, numero);
+            ps.setString(2, categoria);
+            ps.setInt(3, andar);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; 
+    }    
 
     public void removerQuarto(int id) {
         String checkSql = "SELECT COUNT(*) FROM reservas WHERE id_quarto = ?";

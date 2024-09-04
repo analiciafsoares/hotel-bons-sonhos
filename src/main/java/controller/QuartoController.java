@@ -42,4 +42,13 @@ public class QuartoController {
             quartoDAO.cadastrarQuarto(quartoDTO);
         }
     }
+
+    public static boolean removerQuarto(int numero, String categoria, int andar) {
+        int id = new QuartoDAO().buscarIdQuarto(numero, categoria, andar);
+        if (id != -1) {
+            new QuartoDAO().removerQuarto(id);
+            return true;
+        }
+        return false;
+    }
 }

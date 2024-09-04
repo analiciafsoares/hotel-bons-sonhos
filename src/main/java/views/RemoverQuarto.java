@@ -3,9 +3,11 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
+import controller.QuartoController;
 
 public class RemoverQuarto extends PainelPadrao{
     private EspacoTexto numero = new EspacoTexto();
@@ -22,7 +24,15 @@ public class RemoverQuarto extends PainelPadrao{
     private void ouvintes() {
         remover.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                int numeroQuarto = Integer.parseInt(numero.getText());
+                String tipoQuarto = categoria.getText();
+                int andarQuarto = Integer.parseInt(andar.getText());
 
+                if (QuartoController.removerQuarto(numeroQuarto, tipoQuarto, andarQuarto)) {
+                    JOptionPane.showMessageDialog(null, "Quarto removido com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Quarto não encontrado", "Erro", JOptionPane.ERROR);
+                }
             }
         });
     }
