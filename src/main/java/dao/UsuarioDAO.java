@@ -152,25 +152,40 @@ public class UsuarioDAO {
         return false;
     }
 
-    public void removerUsuario(String cpf) {
+    public String removerUsuario(String cpf) {
         String checkSql = "SELECT COUNT(*) FROM reservas WHERE id_cliente = ?";
         String deleteSql = "DELETE FROM usuarios WHERE cpf = ? AND isAdmin = FALSE";
-
-        try (PreparedStatement checkPs = SingletonConnection.getCon().prepareStatement(checkSql)) {
-            checkPs.setString(1, cpf);
-            try (ResultSet rs = checkPs.executeQuery()) {
-                if (rs.next() && rs.getInt(1) == 0) {
-                    try (PreparedStatement deletePs = SingletonConnection.getCon().prepareStatement(deleteSql)) {
+        String verifyUserSql = "SELECT COUNT(*) FROM usuarios WHERE cpf = ?";
+    
+        try (Connection con = SingletonConnection.getCon();
+             PreparedStatement verifyUserPs = con.prepareStatement(verifyUserSql)) {
+            verifyUserPs.setString(1, cpf);
+            ResultSet rsVerify = verifyUserPs.executeQuery();
+            if (rsVerify.next() && rsVerify.getInt(1) == 0) {
+                return "Usuário não encontrado.";
+            }
+    
+            try (PreparedStatement checkPs = con.prepareStatement(checkSql)) {
+                checkPs.setString(1, cpf);
+                ResultSet rsCheck = checkPs.executeQuery();
+                if (rsCheck.next() && rsCheck.getInt(1) == 0) {
+                    try (PreparedStatement deletePs = con.prepareStatement(deleteSql)) {
                         deletePs.setString(1, cpf);
-                        deletePs.executeUpdate();
-                        System.out.println("Usuário removido com sucesso");
+                        int rowsAffected = deletePs.executeUpdate();
+                        if (rowsAffected > 0) {
+                            return "Usuário removido com sucesso";
+                        } else {
+                            return "Não é possível remover o usuário";
+                        }
                     }
                 } else {
-                    System.out.println("Não é possível remover o usuário");
+                    return "Não é possível remover o usuário, pois existem reservas associadas.";
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return "Ocorreu um erro";
     }
+    
 }

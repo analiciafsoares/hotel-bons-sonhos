@@ -8,9 +8,7 @@ import dto.UsuarioDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LoginController {
-
-
+public class UsuarioController {
     public static UsuarioDTO verificarLogin(UsuarioDTO dto) {
         ArrayList<UsuarioDTO> usuarios = new UsuarioDAO().listarTodosUsuarios();
         
@@ -55,6 +53,10 @@ public class LoginController {
 
     public static boolean atualizarCliente(UsuarioDTO cliente) {
         return new UsuarioDAO().atualizarUsuario(cliente);
+    }
+
+    public static String removerCliente(String cpf) {
+        return new UsuarioDAO().removerUsuario(cpf);
     }
 
 }
