@@ -45,7 +45,7 @@ public class RemoverCliente extends PainelPadrao{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (ValidarCampos.isVazio(dado)) {
+                if (ValidarCampos.isVazio(dado) || !ValidarCampos.isCPFValido(dado)) {
                     JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.");
                     return;
                 }

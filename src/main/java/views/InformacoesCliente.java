@@ -32,7 +32,7 @@ public class InformacoesCliente extends PainelPadrao{
         pesquisar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if (ValidarCampos.isVazio(dado)) {
+                if (ValidarCampos.isVazio(dado) || !ValidarCampos.isCPFValido(dado)) {
                     JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.");
                     return;
                 }

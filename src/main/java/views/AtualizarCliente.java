@@ -64,7 +64,7 @@ public class AtualizarCliente extends PainelPadrao{
         lupa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if (ValidarCampos.isVazio(pesquisar)) {
+                if (ValidarCampos.isVazio(pesquisar) || !ValidarCampos.isCPFValido(pesquisar)) {
                     JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.");
                     return;
                 }

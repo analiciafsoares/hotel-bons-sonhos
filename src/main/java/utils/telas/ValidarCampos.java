@@ -34,4 +34,18 @@ public class ValidarCampos {
         
         return matcher.matches();
     }
+
+    public static boolean isCPFValido(JTextField campo) {
+        String cpf = campo.getText().trim();
+        
+        // Remover pontos e traços do CPF
+        cpf = cpf.replace(".", "").replace("-", "");
+        
+        // Verificar se o CPF tem exatamente 11 caracteres e é numérico
+        if (cpf.length() == 11 && cpf.matches("\\d+")) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
 }

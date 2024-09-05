@@ -64,6 +64,9 @@ public class TelaCadastrarClientes extends JanelaPadrao{
                 } else if (!ValidarCampos.isEmailValido(email)) {
                     JOptionPane.showMessageDialog(null, "Insira um email válido!");
                     return;
+                } else if (!ValidarCampos.isCPFValido(CPF)) {
+                    JOptionPane.showMessageDialog(null, "Insira um CPF válido!");
+                    return;
                 }
                 
                 String pegarNome = nome.getText();
