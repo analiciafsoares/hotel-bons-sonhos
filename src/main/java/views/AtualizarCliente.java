@@ -2,6 +2,7 @@ package views;
 
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
+import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +63,12 @@ public class AtualizarCliente extends PainelPadrao{
 
         lupa.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                if (ValidarCampos.isVazio(pesquisar)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.");
+                    return;
+                }
+
                 UsuarioDTO cliente = UsuarioController.resgatarCliente(pesquisar.getText());
                 if (cliente != null){
                     nome.setText(cliente.getNome());

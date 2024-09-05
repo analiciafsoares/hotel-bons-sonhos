@@ -1,7 +1,6 @@
 package views;
 
 import javax.swing.*;
-import java.awt.event.PaintEvent;
 
 public abstract class PainelPadrao extends JPanel {
     public PainelPadrao(){

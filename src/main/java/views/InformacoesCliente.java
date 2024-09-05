@@ -3,6 +3,7 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
 import views.ObjetosTelas.TextosTelas;
+import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,12 @@ public class InformacoesCliente extends PainelPadrao{
     private void ouvintes() {
         pesquisar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                if (ValidarCampos.isVazio(dado)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, digite um CPF válido.");
+                    return;
+                }
+
                 UsuarioDTO cliente = UsuarioController.resgatarCliente(dado.getText());
                 if (cliente != null){
                     nome.setText(cliente.getNome());

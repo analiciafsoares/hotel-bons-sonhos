@@ -2,6 +2,7 @@ package views;
 
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
+import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,12 @@ public class RemoverQuarto extends PainelPadrao{
     private void ouvintes() {
         remover.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                if (ValidarCampos.isVazio(numero, categoria, andar)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
+                    return;
+                }
+
                 int numeroQuarto = Integer.parseInt(numero.getText());
                 String tipoQuarto = categoria.getText();
                 int andarQuarto = Integer.parseInt(andar.getText());

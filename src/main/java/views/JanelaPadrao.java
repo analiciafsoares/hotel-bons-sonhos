@@ -1,6 +1,5 @@
 package views;
 
-import dao.UsuarioDAO;
 import views.ObjetosTelas.Botao;
 
 import javax.swing.*;
@@ -50,10 +49,6 @@ public abstract class JanelaPadrao extends JFrame {
                 repaint();
             }
         });
-    }
-
-    public boolean verificarSenhas(String senha, String confirmarSenha) {
-        return senha.equals(confirmarSenha);
     }
 
     public AdicionarQuartoPainel getAdicionarQuarto() {

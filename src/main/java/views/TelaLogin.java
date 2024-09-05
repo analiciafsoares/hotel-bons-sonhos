@@ -1,12 +1,11 @@
 package views;
 
 import controller.UsuarioController;
-import dao.UsuarioDAO;
-import dto.ClienteDTO;
 import dto.UsuarioDTO;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
+import utils.telas.ValidarCampos;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +26,10 @@ public class TelaLogin extends JanelaPadrao{
     private void ouvintes() {
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (ValidarCampos.isVazio(usuario, senha)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
+                    return;
+                }
                 UsuarioDTO dto = new UsuarioDTO(null, usuario.getText(), null, null, new String(senha.getPassword()), false);
                 UsuarioDTO usuario = UsuarioController.verificarLogin(dto);
                 if (usuario != null) {

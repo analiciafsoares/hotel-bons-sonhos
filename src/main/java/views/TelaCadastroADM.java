@@ -3,6 +3,7 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
+import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,12 @@ public class TelaCadastroADM extends JanelaPadrao{
     private void ouvintes() {
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                
+                if (ValidarCampos.isVazio(nome, CPF, email, telefone, senha, confirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
+                    return;
+                }
+
                 String pegarNome = nome.getText();
                 String pegarSenha = String.valueOf(senha.getPassword());
                 String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
@@ -37,7 +44,7 @@ public class TelaCadastroADM extends JanelaPadrao{
                 String pegarEmail = email.getText();
                 String pegarTelefone = telefone.getText();
 
-                if (!verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
+                if (!ValidarCampos.verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
                     JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
                     return;
                 }

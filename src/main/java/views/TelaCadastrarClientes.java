@@ -3,6 +3,7 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
+import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,15 +22,12 @@ public class TelaCadastrarClientes extends JanelaPadrao{
     private EspacoSenha confirmarSenha = new EspacoSenha();
     private Botao cadastrar = new Botao(false);
 
-
-
     public TelaCadastrarClientes(){
         objetos();
         ouvintes();
         fundo("Cadastro cliente");
     }
 
-    @Override
     public void fundo(String foto) {
         super.fundo(foto);
     }
@@ -56,19 +54,24 @@ public class TelaCadastrarClientes extends JanelaPadrao{
     private void ouvintes() {
         cadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                
+                if (ValidarCampos.isVazio(nome, CPF, email, telefone, senha, confirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
+                    return;
+                }
+    
                 String pegarNome = nome.getText();
                 String pegarSenha = String.valueOf(senha.getPassword());
                 String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
                 String cpf = CPF.getText();
                 String pegarEmail = email.getText();
                 String pegarTelefone = telefone.getText();
-
-                if (!verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
+    
+                if (!ValidarCampos.verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
                     JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
                     return;
                 }
-
-
+    
                 ClienteDTO dto = new ClienteDTO(pegarNome, pegarEmail, cpf, pegarTelefone, pegarSenha);
                 ClienteDTO cliente = UsuarioController.cadastrarCliente(dto);
                 if (cliente != null) {
@@ -79,8 +82,7 @@ public class TelaCadastrarClientes extends JanelaPadrao{
                 }
             }
         });
-
-    }
+    }    
 
     public static void main(String[] args) {
         new TelaCadastrarClientes();

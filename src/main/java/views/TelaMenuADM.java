@@ -2,9 +2,6 @@ package views;
 
 import views.ObjetosTelas.Botao;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class TelaMenuADM extends JanelaPadrao{
     private Botao adicionarQuarto = new Botao(false);
     private Botao removerQuarto = new Botao(false);
