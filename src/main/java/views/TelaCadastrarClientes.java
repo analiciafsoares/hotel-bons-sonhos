@@ -58,19 +58,19 @@ public class TelaCadastrarClientes extends JanelaPadrao{
                 if (ValidarCampos.isVazio(nome, CPF, email, telefone, senha, confirmarSenha)) {
                     JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos.");
                     return;
+                } else if (!ValidarCampos.verificarSenhas(senha, confirmarSenha)) {
+                    JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
+                    return;
+                } else if (!ValidarCampos.isEmailValido(email)) {
+                    JOptionPane.showMessageDialog(null, "Insira um email válido!");
+                    return;
                 }
-    
+                
                 String pegarNome = nome.getText();
                 String pegarSenha = String.valueOf(senha.getPassword());
-                String pegarConfirmarSenha = String.valueOf(confirmarSenha.getPassword());
                 String cpf = CPF.getText();
                 String pegarEmail = email.getText();
                 String pegarTelefone = telefone.getText();
-    
-                if (!ValidarCampos.verificarSenhas(pegarSenha, pegarConfirmarSenha)) {
-                    JOptionPane.showMessageDialog(null, "Os campos senha e confirmar senha devem ser iguais!");
-                    return;
-                }
     
                 ClienteDTO dto = new ClienteDTO(pegarNome, pegarEmail, cpf, pegarTelefone, pegarSenha);
                 ClienteDTO cliente = UsuarioController.cadastrarCliente(dto);
