@@ -7,6 +7,11 @@ import views.ObjetosTelas.TextosTelas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import controller.UsuarioController;
+import dto.UsuarioDTO;
+
 public class InformacoesCliente extends PainelPadrao{
     private EspacoTexto dado = new EspacoTexto();
     private Botao pesquisar = new Botao(false);
@@ -24,14 +29,20 @@ public class InformacoesCliente extends PainelPadrao{
 
     private void ouvintes() {
         pesquisar.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                nome.setText("Otavio Estendio Gonçalves");
-                email.setText("otavioestendio@gmail.com");
-                senha.setText("Otavio255");
-                telefone.setText("83998912392");
-                CPF.setText("12885685417");
-                repaint();
+                UsuarioDTO cliente = UsuarioController.resgatarCliente(dado.getText());
+                if (cliente != null){
+                    nome.setText(cliente.getNome());
+                    email.setText(cliente.getEmail());
+                    telefone.setText(cliente.getTelefone());
+                    CPF.setText(cliente.getCPF());
+                    senha.setText(cliente.getSenha());
+                    repaint();
+                } else {
+                    JOptionPane.showMessageDialog(null,"Não foi possível encontrar o CPF digitado", "Cliente não encontrado", JOptionPane.ERROR_MESSAGE);
+                    pesquisar.setText("");
+                    return;
+                }
             }
         });
     }
