@@ -1,9 +1,56 @@
 package views;
 
-import java.awt.*;
+import views.ObjetosTelas.Botao;
+import views.ObjetosTelas.EspacoTexto;
+import views.ObjetosTelas.TextosTelas;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class InformacoesCliente extends PainelPadrao{
-    public InformacoesCliente(){
+    private EspacoTexto dado = new EspacoTexto();
+    private Botao pesquisar = new Botao(false);
+    private TextosTelas nome = new TextosTelas();
+    private TextosTelas email = new TextosTelas();
+    private TextosTelas telefone = new TextosTelas();
+    private TextosTelas senha = new TextosTelas();
+    private TextosTelas CPF = new TextosTelas();
 
+    public InformacoesCliente(){
+        objetos();
+        ouvintes();
+        fundo("informacoesCliente");
+    }
+
+    private void ouvintes() {
+        pesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nome.setText("Otavio Estendio Gonçalves");
+                email.setText("otavioestendio@gmail.com");
+                senha.setText("Otavio255");
+                telefone.setText("83998912392");
+                CPF.setText("12885685417");
+                repaint();
+            }
+        });
+    }
+
+    private void objetos() {
+        int a = 392,c = 299,d = 50;
+        dado.setBounds(158,79,812,63);
+        pesquisar.setBounds(101,83,56,56);
+        nome.setBounds(a,195,c,d);
+        email.setBounds(a,275,c,d);
+        senha.setBounds(a,355,c,d);
+        telefone.setBounds(a,435,c,d);
+        CPF.setBounds(a,515,c,d);
+        add(dado);
+        add(pesquisar);
+        add(nome);
+        add(email);
+        add(telefone);
+        add(senha);
+        add(CPF);
     }
 }

@@ -3,24 +3,32 @@ package views;
 import controller.UsuarioController;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
+import views.ObjetosTelas.TextosTelas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class RemoverCliente extends PainelPadrao{
-    private EspacoTexto cpf = new EspacoTexto();
+    private EspacoTexto dado = new EspacoTexto();
     private Botao remover = new Botao(false);
+    private Botao pesquisar = new Botao(false);
+    private TextosTelas nome = new TextosTelas();
+    private TextosTelas email = new TextosTelas();
+    private TextosTelas telefone = new TextosTelas();
+    private TextosTelas cpf = new TextosTelas();
+
 
     public RemoverCliente(){
         ouvintes();
         objetos();
+        fundo("remover cliente");
     }
 
     private void ouvintes() {
         remover.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String cpfCliente = cpf.getText();
+                String cpfCliente = dado.getText();
                 String resposta = UsuarioController.removerCliente(cpfCliente);
 
                 if (resposta.equals("Usuário removido com sucesso")) {
@@ -30,13 +38,31 @@ public class RemoverCliente extends PainelPadrao{
                 }
             }
         });
+        //Quando esse botão for ativado, ele deve coletar as informações do usuario e mostralas atrave do método .setText()
+        pesquisar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
+
     private void objetos() {
-        int a = 373, c = 324, d = 50;
-        cpf.setBounds(a,238,c,d);
-        remover.setBounds(409,547,252,71);
-        add(cpf);
+        int c = 300, d = 28;
+        dado.setBounds(158,79,812,63);
+        remover.setBounds(388,510,296,84);
+        pesquisar.setBounds(101,83,56,56);
+        telefone.setBounds(720,184,c,d);
+        cpf.setBounds(720,264,c,d);
+        email.setBounds(220,263,c,d);
+        nome.setBounds(220,184,c,d);
+        add(dado);
         add(remover);
+        add(pesquisar);
+        add(nome);
+        add(email);
+        add(telefone);
+        add(cpf);
     }
 }
