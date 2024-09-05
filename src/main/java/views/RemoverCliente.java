@@ -1,6 +1,7 @@
 package views;
 
 import controller.UsuarioController;
+import dto.UsuarioDTO;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
 import views.ObjetosTelas.TextosTelas;
@@ -38,11 +39,22 @@ public class RemoverCliente extends PainelPadrao{
                 }
             }
         });
-        //Quando esse botão for ativado, ele deve coletar as informações do usuario e mostralas atrave do método .setText()
+        
         pesquisar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                UsuarioDTO cliente = UsuarioController.resgatarCliente(dado.getText());
+                if (cliente != null){
+                    nome.setText(cliente.getNome());
+                    email.setText(cliente.getEmail());
+                    telefone.setText(cliente.getTelefone());
+                    cpf.setText(cliente.getCPF());
+                    repaint();
+                } else {
+                    JOptionPane.showMessageDialog(null,"Não foi possível encontrar o CPF digitado", "Cliente não encontrado", JOptionPane.ERROR_MESSAGE);
+                    pesquisar.setText("");
+                    return;
+                }
             }
         });
     }
