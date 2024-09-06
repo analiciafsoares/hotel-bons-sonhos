@@ -1,6 +1,7 @@
 package views;
 
 import views.ObjetosTelas.Botao;
+import views.telasADM.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

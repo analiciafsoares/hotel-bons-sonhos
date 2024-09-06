@@ -1,17 +1,16 @@
-package views;
+package views.telasADM;
 
+import controller.QuartoController;
+import utils.telas.ValidarCampos;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoTexto;
-import utils.telas.ValidarCampos;
+import views.PainelPadrao;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
-import controller.QuartoController;
-
-public class AdicionarQuartoPainel extends PainelPadrao{
+public class AdicionarQuartoPainel extends PainelPadrao {
     private EspacoTexto numero = new EspacoTexto();
     private EspacoTexto categoria = new EspacoTexto();
     private EspacoTexto andar = new EspacoTexto();

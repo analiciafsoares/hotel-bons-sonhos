@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import controller.UsuarioController;
 import dto.AdmDTO;
+import views.telasADM.TelaMenuADM;
 
 public class TelaCadastroADM extends JanelaPadrao{
     private EspacoTexto nome = new EspacoTexto();

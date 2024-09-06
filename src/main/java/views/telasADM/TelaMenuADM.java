@@ -1,8 +1,9 @@
-package views;
+package views.telasADM;
 
+import views.JanelaPadrao;
 import views.ObjetosTelas.Botao;
 
-public class TelaMenuADM extends JanelaPadrao{
+public class TelaMenuADM extends JanelaPadrao {
     private Botao adicionarQuarto = new Botao(false);
     private Botao removerQuarto = new Botao(false);
     private Botao removerCliente = new Botao(false);

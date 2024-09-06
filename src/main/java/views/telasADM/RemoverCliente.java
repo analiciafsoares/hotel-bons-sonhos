@@ -1,35 +1,49 @@
-package views;
-
-import views.ObjetosTelas.Botao;
-import views.ObjetosTelas.EspacoTexto;
-import views.ObjetosTelas.TextosTelas;
-import utils.telas.ValidarCampos;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
+package views.telasADM;
 
 import controller.UsuarioController;
 import dto.UsuarioDTO;
+import utils.telas.ValidarCampos;
+import views.ObjetosTelas.Botao;
+import views.ObjetosTelas.EspacoTexto;
+import views.ObjetosTelas.TextosTelas;
+import views.PainelPadrao;
 
-public class InformacoesCliente extends PainelPadrao{
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RemoverCliente extends PainelPadrao {
     private EspacoTexto dado = new EspacoTexto();
+    private Botao remover = new Botao(false);
     private Botao pesquisar = new Botao(false);
     private TextosTelas nome = new TextosTelas();
     private TextosTelas email = new TextosTelas();
     private TextosTelas telefone = new TextosTelas();
-    private TextosTelas senha = new TextosTelas();
-    private TextosTelas CPF = new TextosTelas();
+    private TextosTelas cpf = new TextosTelas();
 
-    public InformacoesCliente(){
-        objetos();
+
+    public RemoverCliente(){
         ouvintes();
-        fundo("informacoesCliente");
+        objetos();
+        fundo("remover cliente");
     }
 
     private void ouvintes() {
+        remover.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String cpfCliente = dado.getText();
+                String resposta = UsuarioController.removerCliente(cpfCliente);
+
+                if (resposta.equals("Usuário removido com sucesso")) {
+                    JOptionPane.showMessageDialog(null, "Cliente removido com sucesso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, resposta, "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        
         pesquisar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
 
                 if (ValidarCampos.isVazio(dado) || !ValidarCampos.isCPFValido(dado)) {
@@ -42,8 +56,7 @@ public class InformacoesCliente extends PainelPadrao{
                     nome.setText(cliente.getNome());
                     email.setText(cliente.getEmail());
                     telefone.setText(cliente.getTelefone());
-                    CPF.setText(cliente.getCPF());
-                    senha.setText(cliente.getSenha());
+                    cpf.setText(cliente.getCPF());
                     repaint();
                 } else {
                     JOptionPane.showMessageDialog(null,"Não foi possível encontrar o CPF digitado", "Cliente não encontrado", JOptionPane.ERROR_MESSAGE);
@@ -54,21 +67,22 @@ public class InformacoesCliente extends PainelPadrao{
         });
     }
 
+
     private void objetos() {
-        int a = 392,c = 299,d = 50;
+        int c = 300, d = 28;
         dado.setBounds(158,79,812,63);
+        remover.setBounds(388,510,296,84);
         pesquisar.setBounds(101,83,56,56);
-        nome.setBounds(a,195,c,d);
-        email.setBounds(a,275,c,d);
-        senha.setBounds(a,355,c,d);
-        telefone.setBounds(a,435,c,d);
-        CPF.setBounds(a,515,c,d);
+        telefone.setBounds(720,184,c,d);
+        cpf.setBounds(720,264,c,d);
+        email.setBounds(220,263,c,d);
+        nome.setBounds(220,184,c,d);
         add(dado);
+        add(remover);
         add(pesquisar);
         add(nome);
         add(email);
         add(telefone);
-        add(senha);
-        add(CPF);
+        add(cpf);
     }
 }

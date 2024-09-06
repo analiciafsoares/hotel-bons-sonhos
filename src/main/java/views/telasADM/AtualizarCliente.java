@@ -1,18 +1,17 @@
-package views;
-
-import views.ObjetosTelas.Botao;
-import views.ObjetosTelas.EspacoTexto;
-import utils.telas.ValidarCampos;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
+package views.telasADM;
 
 import controller.UsuarioController;
 import dto.UsuarioDTO;
+import utils.telas.ValidarCampos;
+import views.ObjetosTelas.Botao;
+import views.ObjetosTelas.EspacoTexto;
+import views.PainelPadrao;
 
-public class AtualizarCliente extends PainelPadrao{
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AtualizarCliente extends PainelPadrao {
     private EspacoTexto nome = new EspacoTexto();
     private EspacoTexto email = new EspacoTexto();
     private EspacoTexto senha = new EspacoTexto();
@@ -95,6 +94,7 @@ public class AtualizarCliente extends PainelPadrao{
         senha.setBounds(a,333,c,d);
         telefone.setBounds(635,173,c,d);
         cpf.setBounds(635,253,c,d);
+        cpf.setEnabled(false);
         pesquisar.setBounds(158,80,812,63);
         atualizar.setBounds(192,510,296,85);
         limpar.setBounds(584,510,296,85);
