@@ -42,6 +42,7 @@ public abstract class JanelaPadrao extends JFrame {
         add(informacoesCliente);
     }
 
+
     public void mostrar(Botao botao,JPanel painel){
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
