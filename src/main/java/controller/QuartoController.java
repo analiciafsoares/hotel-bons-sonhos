@@ -4,6 +4,7 @@ import models.quarto.QuartoFactory;
 import models.quarto.Quartos;
 import dao.QuartoDAO;
 import dto.QuartoDTO;
+import java.util.ArrayList;
 
 public class QuartoController {
 
@@ -50,5 +51,9 @@ public class QuartoController {
             return true;
         }
         return false;
+    }
+
+    public static ArrayList<QuartoDTO> listarQuartos() {
+        return new QuartoDAO().listarQuartos();
     }
 }
