@@ -11,16 +11,20 @@ import controller.QuartoController;
 import dto.QuartoDTO;
 import views.ObjetosTelas.TextosTelas;
 
+import javax.swing.*;
+
 public class InformacoesQuarto extends JanelaPadrao {
     private Botao anterior = new Botao(false);
     private Botao reservar = new Botao(false);
     private Botao proximo = new Botao(false);
+    private Botao maisImagens = new Botao(false);
     private TextosTelas codigo = new TextosTelas();
     private TextosTelas diaria = new TextosTelas();
     private TextosTelas capacidade = new TextosTelas();
     private TextosTelas numero = new TextosTelas();
     private TextosTelas andar = new TextosTelas();
     private TextosTelas tipo = new TextosTelas();
+    private QuartoDTO quarto;
 
 
     
@@ -62,6 +66,12 @@ public class InformacoesQuarto extends JanelaPadrao {
 
             }
         });
+        maisImagens.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                imagem(quarto.getTipo());
+            }
+        });
     }
 
     private void objetos() {
@@ -69,6 +79,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         anterior.setBounds(517, b, c, d);
         reservar.setBounds(724, b, c, d);
         proximo.setBounds(932, b, c, d);
+        maisImagens.setBounds(108,533,234,54);
         codigo.setBounds(726,208,33,35);
         diaria.setBounds(662,282,91,35);
         capacidade.setBounds(767,356,30,35);
@@ -84,10 +95,24 @@ public class InformacoesQuarto extends JanelaPadrao {
         add(anterior);
         add(reservar);
         add(proximo);
+        add(maisImagens);
+    }
+    private void imagem(String tipo){
+        String imagemQuarto = "";
+        if(tipo.equals("Luxo")){
+
+        }
+        ImageIcon imagem = new ImageIcon("src/main/java/utils/imagens/"+imagemQuarto+".png");
+        JLabel label = new JLabel();
+        label.setIcon(imagem);
+        label.setBounds(113,258,348,260);
+        add(label);
+        repaint();
     }
 
+
     private void exibirQuartoAtual() {
-        QuartoDTO quarto = quartos.get(indiceAtual);
+        quarto = quartos.get(indiceAtual);
         codigo.setText(String.valueOf(quarto.getCodigoQuarto()));
         diaria.setText(String.valueOf(quarto.getPrecoDiaria()));
         capacidade.setText(String.valueOf(quarto.getCapacidadeMaxima()));
