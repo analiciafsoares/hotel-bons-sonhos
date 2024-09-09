@@ -6,7 +6,7 @@ import java.util.List;
 public class QuartoDeLuxo extends Quartos {
 
     public QuartoDeLuxo(int numero, int andar, double precoDiaria, String tipo) {
-        super(numero, andar, precoDiaria, tipo);
+        super(numero, andar, precoDiaria, tipo, 6);
     }
 
     public String getDescricaoBasica(){

@@ -72,7 +72,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         codigo.setBounds(726,208,33,35);
         diaria.setBounds(662,282,91,35);
         capacidade.setBounds(767,356,30,35);
-        numero.setBounds(1022,208,30,35);
+        numero.setBounds(1022,208,50,35);
         andar.setBounds(994,282,30,35);
         tipo.setBounds(978,356,80,35);
         add(codigo);

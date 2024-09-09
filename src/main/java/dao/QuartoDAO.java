@@ -14,7 +14,7 @@ public class QuartoDAO {
     public void cadastrarQuarto(QuartoDTO quarto){
         Quarto entity = Mapper.parseObject(quarto, Quarto.class);
 
-        String sql = "INSERT INTO quartos (ID, TIPO, PRECO_DIARIA, NUMERO, ANDAR) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO quartos (ID, TIPO, PRECO_DIARIA, NUMERO, ANDAR, CAPACIDADE) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = null;
 
         try {
@@ -24,6 +24,7 @@ public class QuartoDAO {
             ps.setString(3, String.valueOf(quarto.getPrecoDiaria()));
             ps.setString(4, String.valueOf(quarto.getNumero()));
             ps.setString(5, String.valueOf(quarto.getAndar()));
+            ps.setInt(6, quarto.getCapacidadeMaxima());
 
             ps.execute();
             ps.close();
@@ -34,7 +35,7 @@ public class QuartoDAO {
     }
 
     public ArrayList<QuartoDTO> listarQuartos() {
-        String sql = "SELECT id, tipo, preco_diaria, numero, andar FROM quartos";
+        String sql = "SELECT id, tipo, preco_diaria, numero, andar, capacidade FROM quartos";
         ArrayList<QuartoDTO> quartos = new ArrayList<>();
 
         try (Connection con = SingletonConnection.getCon();
@@ -48,6 +49,7 @@ public class QuartoDAO {
                 quarto.setPrecoDiaria(rs.getDouble("preco_diaria"));
                 quarto.setNumero(rs.getInt("numero"));
                 quarto.setAndar(rs.getInt("andar"));
+                quarto.setCapacidadeMaxima(rs.getInt("capacidade"));
                
                 quartos.add(quarto);
             }
@@ -60,7 +62,7 @@ public class QuartoDAO {
     }
 
     public QuartoDTO recuperarQuarto(int id) {
-        String sql = "SELECT id, tipo, preco_diaria, numero, andar FROM quartos WHERE id = ?";
+        String sql = "SELECT id, tipo, preco_diaria, numero, andar, capacidade FROM quartos WHERE id = ?";
         QuartoDTO quarto = null;
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
@@ -74,6 +76,7 @@ public class QuartoDAO {
                 quarto.setPrecoDiaria(rs.getDouble("preco_diaria"));
                 quarto.setNumero(rs.getInt("numero"));
                 quarto.setAndar(rs.getInt("andar"));
+                quarto.setCapacidadeMaxima(rs.getInt("capacidade"));
             }
     
         } catch(SQLException e){
@@ -86,14 +89,15 @@ public class QuartoDAO {
     public boolean atualizarQuarto(QuartoDTO quarto) {
         Quarto entity = Mapper.parseObject(quarto, Quarto.class);
 
-        String sql = "UPDATE quartos SET tipo = ?, preco_diaria = ?, numero = ?, andar = ? WHERE id = ?";
+        String sql = "UPDATE quartos SET tipo = ?, preco_diaria = ?, numero = ?, andar = ?, capacidade = ? WHERE id = ?";
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, quarto.getTipo());
             ps.setDouble(2, quarto.getPrecoDiaria());
             ps.setInt(3, quarto.getNumero());
             ps.setInt(4, quarto.getAndar());
-            ps.setInt(5, quarto.getCodigoQuarto());
+            ps.setInt(5, quarto.getCapacidadeMaxima());
+            ps.setInt(6, quarto.getCodigoQuarto());
             
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
