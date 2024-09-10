@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 public class TelaMenuCliente extends JanelaPadrao {
     private Botao buscar = new Botao(false);
     private Botao visualizar = new Botao(false);
+    private String CPFCLiente;
 
 
 
-    public TelaMenuCliente(){
+    public TelaMenuCliente(String CPFCLiente){
+        this.CPFCLiente = CPFCLiente;
         objetos();
         ouvintes();
         fundo("menuCliente");
@@ -22,6 +24,7 @@ public class TelaMenuCliente extends JanelaPadrao {
         buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new InformacoesQuarto(CPFCLiente);
                 dispose();
             }
         });
@@ -38,9 +41,5 @@ public class TelaMenuCliente extends JanelaPadrao {
         visualizar.setBounds(731,260,382,238);
         add(buscar);
         add(visualizar);
-    }
-
-    public static void main(String[] args) {
-        new TelaMenuCliente();
     }
 }

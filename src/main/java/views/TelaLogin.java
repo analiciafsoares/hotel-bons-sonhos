@@ -7,6 +7,7 @@ import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
 import utils.telas.ValidarCampos;
 import views.telasADM.TelaMenuADM;
+import views.telasCliente.TelaMenuCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,8 @@ public class TelaLogin extends JanelaPadrao{
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + usuario.getNome() + "!");
                     if (usuario.isAdmin()) {
                         new TelaMenuADM();
+                    }else{
+                        new TelaMenuCliente(usuario.getCPF());
                     }
                     dispose();
                 } else {

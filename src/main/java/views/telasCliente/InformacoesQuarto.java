@@ -11,8 +11,6 @@ import controller.QuartoController;
 import dto.QuartoDTO;
 import views.ObjetosTelas.TextosTelas;
 
-import javax.swing.*;
-
 public class InformacoesQuarto extends JanelaPadrao {
     private Botao anterior = new Botao(false);
     private Botao reservar = new Botao(false);
@@ -25,13 +23,15 @@ public class InformacoesQuarto extends JanelaPadrao {
     private TextosTelas andar = new TextosTelas();
     private TextosTelas tipo = new TextosTelas();
     private QuartoDTO quarto;
+    private String CPFCliente;
 
 
     
     private ArrayList<QuartoDTO> quartos;
     private int indiceAtual = 0;
 
-    public InformacoesQuarto() {
+    public InformacoesQuarto(String CPFCliente) {
+        this.CPFCliente = CPFCliente;
         quartos = QuartoController.listarQuartos();
         objetos();
         ouvintes();
@@ -115,9 +115,5 @@ public class InformacoesQuarto extends JanelaPadrao {
         andar.setText(String.valueOf(quarto.getAndar()));
         tipo.setText(String.valueOf(quarto.getTipo()));
         repaint();
-    }
-
-    public static void main(String[] args) {
-        new InformacoesQuarto();
     }
 }
