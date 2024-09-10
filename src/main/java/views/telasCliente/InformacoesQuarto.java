@@ -32,7 +32,7 @@ public class InformacoesQuarto extends JanelaPadrao {
     private int indiceAtual = 0;
 
     public InformacoesQuarto() {
-        quartos = QuartoController.listarQuartos(); 
+        quartos = QuartoController.listarQuartos();
         objetos();
         ouvintes();
         fundo("Informações de Quartos");
@@ -69,7 +69,8 @@ public class InformacoesQuarto extends JanelaPadrao {
         maisImagens.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                imagem(quarto.getTipo());
+                imagem();
+
             }
         });
     }
@@ -97,17 +98,10 @@ public class InformacoesQuarto extends JanelaPadrao {
         add(proximo);
         add(maisImagens);
     }
-    private void imagem(String tipo){
-        String imagemQuarto = "";
-        if(tipo.equals("Luxo")){
-
-        }
-        ImageIcon imagem = new ImageIcon("src/main/java/utils/imagens/"+imagemQuarto+".png");
-        JLabel label = new JLabel();
-        label.setIcon(imagem);
-        label.setBounds(113,258,348,260);
-        add(label);
-        repaint();
+    private void imagem(){
+        int numero = ((int)(1 + Math.random() * 3));
+        remover();
+        fundo("luxo"+numero);
     }
 
 

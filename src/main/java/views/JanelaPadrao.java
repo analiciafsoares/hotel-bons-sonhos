@@ -14,6 +14,7 @@ public abstract class JanelaPadrao extends JFrame {
     private RemoverCliente removerCliente = new RemoverCliente();
     private AtualizarCliente atualizarCliente = new AtualizarCliente();
     private InformacoesCliente informacoesCliente = new InformacoesCliente();
+    private JLabel label;
 
 
     public JanelaPadrao(){
@@ -95,9 +96,14 @@ public abstract class JanelaPadrao extends JFrame {
         ouvinte();
     }
 
+    public void remover(){
+        remove(label);
+    }
+
+
     public void fundo(String foto) {
         ImageIcon imagem = new ImageIcon("src/main/java/utils/imagens/"+foto+".png");
-        JLabel label = new JLabel();
+        label = new JLabel();
         label.setIcon(imagem);
         label.setBounds(0,0,getWidth(),getHeight());
         add(label);
