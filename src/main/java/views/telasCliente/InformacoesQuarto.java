@@ -69,7 +69,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         maisImagens.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                imagem();
+                imagem(quarto.getTipo());
 
             }
         });
@@ -98,10 +98,11 @@ public class InformacoesQuarto extends JanelaPadrao {
         add(proximo);
         add(maisImagens);
     }
-    private void imagem(){
+    // imagens de quartos do tipo luxo,simples e suite
+    private void imagem(String tipo){
         int numero = ((int)(1 + Math.random() * 3));
         remover();
-        fundo("luxo"+numero);
+        fundo(tipo+numero);
     }
 
 
