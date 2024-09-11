@@ -31,6 +31,7 @@ public class TelaMenuCliente extends JanelaPadrao {
         visualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new VisualizarReservas(CPFCLiente);
                 dispose();
             }
         });

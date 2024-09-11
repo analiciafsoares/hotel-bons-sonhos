@@ -20,7 +20,7 @@ public class VisualizarReservas extends JanelaPadrao {
     private JTable tabela;
     private JScrollPane painelTabela;
 
-    public VisualizarReservas(){
+    public VisualizarReservas(String CPF){
         objetos();
         ouvintes();
         fundo("VisualizarReservas");
@@ -78,9 +78,5 @@ public class VisualizarReservas extends JanelaPadrao {
         add(cancelar);
         add(detalhar);
         add(voltarMenu);
-    }
-
-    public static void main(String[] args) {
-        new VisualizarReservas();
     }
 }
