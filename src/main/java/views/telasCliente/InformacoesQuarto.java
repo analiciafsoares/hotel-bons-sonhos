@@ -24,6 +24,7 @@ public class InformacoesQuarto extends JanelaPadrao {
     private TextosTelas tipo = new TextosTelas();
     private QuartoDTO quarto;
     private String CPFCliente;
+    private Botao menu = new Botao(false);
 
 
     
@@ -71,6 +72,12 @@ public class InformacoesQuarto extends JanelaPadrao {
             public void actionPerformed(ActionEvent e) {
                 imagem(quarto.getTipo());
 
+            }
+        });
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                voltarMenu(CPFCliente);
             }
         });
     }

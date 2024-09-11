@@ -2,6 +2,7 @@ package views;
 
 import views.ObjetosTelas.Botao;
 import views.telasADM.*;
+import views.telasCliente.TelaMenuCliente;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +53,11 @@ public abstract class JanelaPadrao extends JFrame {
                 repaint();
             }
         });
+    }
+
+    public void voltarMenu(String CPF){
+        dispose();
+        new TelaMenuCliente(CPF);
     }
 
     public AdicionarQuartoPainel getAdicionarQuarto() {
