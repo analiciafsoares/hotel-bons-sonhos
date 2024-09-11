@@ -5,7 +5,7 @@ import models.quarto.Quarto;
 
 import java.sql.Date;
 
-public class Reserva {
+public class Reserva implements Prototype{
 
     private int id;
     private Cliente cliente;
@@ -69,5 +69,9 @@ public class Reserva {
         } else {
             return "Quarto indisponível para o período selecionado";
         }
+    }
+
+    public Prototype clone() {
+        return new Reserva();
     }
 }
