@@ -2,8 +2,12 @@ package models.reserva;
 
 import models.Cliente;
 import models.quarto.Quarto;
+import utils.mapper.Mapper;
 
 import java.sql.Date;
+
+import dto.ClienteDTO;
+import dto.QuartoDTO;
 
 public class ReservaBuilder {
 
@@ -18,38 +22,28 @@ public class ReservaBuilder {
         return this;
     }
 
-    public ReservaBuilder setCliente(String nome, String email, String telefone, String CPF){
-        Cliente cliente = new Cliente();
-        cliente.setNome(nome);
-        cliente.setEmail(email);
-        cliente.setTelefone(telefone);
-        cliente.setCPF(CPF);
-
-        instancia.setCliente(cliente);
+    public ReservaBuilder setCliente(ClienteDTO cliente){
+        instancia.setCliente(Mapper.parseObject(cliente, Cliente.class));
         return this;
     }
 
-    public ReservaBuilder setQuarto(int codigoQuarto, int numero, int andar, double precoDiaria, String tipo){
-        Quarto quarto = new Quarto();
-        quarto.setCodigoQuarto(codigoQuarto);
-        quarto.setNumero(numero);
-        quarto.setAndar(andar);
-        quarto.setPrecoDiaria(precoDiaria);
-        quarto.setTipo(tipo);
-
-        instancia.setQuarto(quarto);
+    public ReservaBuilder setQuarto(QuartoDTO quarto){
+        instancia.setQuarto(Mapper.parseObject(quarto, Quarto.class));
         return this;
     }
 
-    public ReservaBuilder setDataCheckin(int dia, int mes, int ano){
-        Date data = new Date(ano-1900, mes-1, dia);
+    public ReservaBuilder setDataCheckin(Date data){
         instancia.setDataCheckin(data);
         return this;
     }
 
-    public ReservaBuilder setDataCheckout(int dia, int mes, int ano) {
-        Date data = new Date(ano-1900, mes-1, dia);
+    public ReservaBuilder setDataCheckout(Date data) {
         instancia.setDataCheckout(data);
+        return this;
+    }
+
+    public ReservaBuilder setPrecoTotal(double preco) {
+        instancia.setPrecoTotal(preco);
         return this;
     }
 

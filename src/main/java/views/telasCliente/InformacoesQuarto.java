@@ -6,9 +6,18 @@ import views.ObjetosTelas.Botao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+import java.text.ParseException;
+
+import java.sql.Date;
 
 import controller.QuartoController;
+import controller.ReservaController;
+import controller.UsuarioController;
 import dto.QuartoDTO;
+import models.quarto.observer.ClienteObserver;
+import utils.telas.ValidarCampos;
 import views.ObjetosTelas.TextosTelas;
 
 public class InformacoesQuarto extends JanelaPadrao {
@@ -64,6 +73,34 @@ public class InformacoesQuarto extends JanelaPadrao {
         reservar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                String checkin = JOptionPane.showInputDialog(null, "Digite a data de checkin: (dd/mm/yyyy)");
+                String checkout = JOptionPane.showInputDialog(null, "Digite a data de checkout: (dd/mm/yyyy)");
+
+                if (checkin != null && checkout != null) {
+                    try {
+                        // Validate dates
+                        Date checkinDate = ValidarCampos.parseDate(checkin);
+                        Date checkoutDate = ValidarCampos.parseDate(checkout);
+
+                        if(ReservaController.consultarDisponibilidade(quartos.get(indiceAtual), checkinDate, checkoutDate)) {
+                            ReservaController.reservarQuarto(quartos.get(indiceAtual), CPFCliente, checkinDate, checkoutDate);
+                            JOptionPane.showMessageDialog(null, "Reserva realizada!");
+                        } else {
+                            int resposta = JOptionPane.showConfirmDialog(null, "Se interessou? Deseja receber um e-mail quando tivermos atualizações?", "Quarto indisponível", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if (resposta == JOptionPane.YES_OPTION){
+                                String email = UsuarioController.recuperarEmail(CPFCliente);
+                                ClienteObserver c = new ClienteObserver(email);
+                                JOptionPane.showMessageDialog(null, "Cadastramos você na lista de interessados, fique de olho no e-mail!");
+                            } 
+                            return;
+                        }
+
+                    } catch (ParseException pe) {
+                        JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
 
             }
         });

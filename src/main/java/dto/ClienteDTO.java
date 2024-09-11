@@ -6,4 +6,6 @@ public class ClienteDTO extends UsuarioDTO{
     public ClienteDTO(String nome, String email, String cpf, String telefone, String senha) {
         super(nome, email, cpf, telefone, senha, isAdmin);
     }
+    
+    public ClienteDTO(){}
 }

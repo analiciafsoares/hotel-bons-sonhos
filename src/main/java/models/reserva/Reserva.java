@@ -12,6 +12,7 @@ public class Reserva {
     private Quarto quarto;
     private Date dataCheckin;
     private Date dataCheckout;
+    private double precoTotal;
 
     public int getId() {
         return id;
@@ -63,11 +64,12 @@ public class Reserva {
                 ", dataCheckout=" + dataCheckout +
                 '}';
     }
-    public String validarDisponibilidade(Date dataInicio, Date dataFim) {
-        if (this.dataCheckout.before(dataInicio) || this.dataCheckin.after(dataFim)) {
-            return "Quarto disponível";
-        } else {
-            return "Quarto indisponível para o período selecionado";
-        }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 }

@@ -16,15 +16,17 @@ public class ReservaDAO {
     public void cadastrarReserva(ReservaDTO reserva){
         Reserva entity = Mapper.parseObject(reserva, Reserva.class);
 
-        String sql = "INSERT INTO reservas (ID_CLIENTE, ID_QUARTO, DATA_CHECKIN, DATA_CHECKOUT) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO reservas (ID, ID_CLIENTE, ID_QUARTO, DATA_CHECKIN, DATA_CHECKOUT, PRECO_TOTAL) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = null;
 
         try {
             ps = SingletonConnection.getCon().prepareStatement(sql);
-            ps.setString(1, reserva.getCliente().getCPF());
-            ps.setInt(2, reserva.getQuarto().getCodigoQuarto());
-            ps.setDate(3, new Date(reserva.getDataCheckin().getTime()));
-            ps.setDate(4, new Date(reserva.getDataCheckout().getTime()));
+            ps.setInt(1, reserva.getId());
+            ps.setString(2, reserva.getCliente().getCPF());
+            ps.setInt(3, reserva.getQuarto().getCodigoQuarto());
+            ps.setDate(4, new Date(reserva.getDataCheckin().getTime()));
+            ps.setDate(5, new Date(reserva.getDataCheckout().getTime()));
+            ps.setDouble(6, reserva.getPrecoTotal());
 
             ps.execute();
             ps.close();
@@ -35,7 +37,7 @@ public class ReservaDAO {
     }
 
     public ArrayList<ReservaDTO> listarReservas() {
-        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout FROM reservas";
+        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout, preco_total FROM reservas";
         ArrayList<ReservaDTO> reservas = new ArrayList<>();
     
         try (Connection con = SingletonConnection.getCon();
@@ -54,6 +56,7 @@ public class ReservaDAO {
                 
                 reserva.setDataCheckin(rs.getDate("data_checkin"));
                 reserva.setDataCheckout(rs.getDate("data_checkout"));
+                reserva.setPrecoTotal(rs.getDouble("preco_total"));
                 
                 reservas.add(reserva);
             }
@@ -66,7 +69,7 @@ public class ReservaDAO {
     }    
 
     public List<ReservaDTO> listarReservasPorQuarto(int codigoQuarto) {
-        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout FROM reservas WHERE id_quarto = ?";
+        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout, preco_total FROM reservas WHERE id_quarto = ?";
         List<ReservaDTO> reservas = new ArrayList<>();
 
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
@@ -85,6 +88,7 @@ public class ReservaDAO {
 
                 reserva.setDataCheckin(rs.getDate("data_checkin"));
                 reserva.setDataCheckout(rs.getDate("data_checkout"));
+                reserva.setPrecoTotal(rs.getDouble("preco_total"));
 
                 reservas.add(reserva);
             }
@@ -97,7 +101,7 @@ public class ReservaDAO {
     }
 
     public ReservaDTO recuperarReserva(int id) {
-        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout FROM reservas WHERE id = ?";
+        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout, preco_total FROM reservas WHERE id = ?";
         ReservaDTO reserva = null;
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
@@ -116,6 +120,7 @@ public class ReservaDAO {
                 
                 reserva.setDataCheckin(rs.getDate("data_checkin"));
                 reserva.setDataCheckout(rs.getDate("data_checkout"));
+                reserva.setPrecoTotal(rs.getDouble("preco_total"));
             }
     
         } catch(SQLException e){
@@ -126,7 +131,7 @@ public class ReservaDAO {
     }
 
     public boolean atualizarReserva(ReservaDTO reserva) {
-        String sql = "UPDATE reservas SET id_cliente = ?, id_quarto = ?, data_checkin = ?, data_checkout = ? WHERE id = ?";
+        String sql = "UPDATE reservas SET id_cliente = ?, id_quarto = ?, data_checkin = ?, data_checkout = ?, preco_total = ? WHERE id = ?";
 
         Reserva entity = Mapper.parseObject(reserva, Reserva.class);
     
@@ -135,7 +140,8 @@ public class ReservaDAO {
             ps.setInt(2, reserva.getQuarto().getCodigoQuarto());
             ps.setDate(3, new Date(reserva.getDataCheckin().getTime()));
             ps.setDate(4, new Date(reserva.getDataCheckout().getTime()));
-            ps.setInt(5, reserva.getId());
+            ps.setDouble(5, reserva.getPrecoTotal());
+            ps.setInt(6, reserva.getId());
             
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
@@ -146,7 +152,6 @@ public class ReservaDAO {
         return false;
     }
     
-
     public void removerReserva(int id) {
         String sql = "DELETE FROM reservas WHERE id = ?";
         PreparedStatement ps = null;

@@ -11,6 +11,7 @@ public class ReservaDTO {
     private Quarto quarto;
     private Date dataCheckin;
     private Date dataCheckout;
+    private double precoTotal;
 
     public int getId() {
         return id;
@@ -50,5 +51,13 @@ public class ReservaDTO {
 
     public void setDataCheckout(Date dataCheckout) {
         this.dataCheckout = dataCheckout;
+    }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 }

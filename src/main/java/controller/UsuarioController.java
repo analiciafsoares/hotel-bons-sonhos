@@ -44,6 +44,10 @@ public class UsuarioController {
         return new UsuarioDAO().listarTodosUsuarios().size() > 0;
     }
 
+    public static String recuperarEmail(String cpf) {
+        return resgatarCliente(cpf).getEmail();
+    }
+
     public static UsuarioDTO resgatarCliente(String cpf) {
         UsuarioDTO cliente;
         cliente = new UsuarioDAO().recuperarUsuario(cpf);

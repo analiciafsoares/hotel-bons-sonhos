@@ -6,6 +6,13 @@ import java.util.regex.Pattern;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.Locale;
+
+import java.sql.Date;
+
 public class ValidarCampos {
     public static boolean isVazio(JTextField... campos) {
         for (JTextField campo : campos) {
@@ -47,5 +54,13 @@ public class ValidarCampos {
         } else {
             return false; 
         }
+    }
+
+    public static Date parseDate(String dateString) throws ParseException {
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+
+        java.util.Date utilDate = DATE_FORMAT.parse(dateString);
+
+        return new Date(utilDate.getTime());
     }
 }

@@ -17,6 +17,8 @@ public class UsuarioDTO {
         this.senha = senha;
         this.isAdmin = isAdmin;
     }
+
+    public UsuarioDTO(){}
     
     public boolean isAdmin() {
         return isAdmin;
