@@ -1,7 +1,8 @@
 package models.quarto;
 
+import controller.UsuarioController;
 import models.quarto.observer.IObserver;
-import models.quarto.observer.QuartoDisponivelSubject;
+import models.quarto.observer.QuartoNovoSubject;
 
 public class Quarto {
 
@@ -12,10 +13,11 @@ public class Quarto {
     private String tipo;
     private int capacidadeMaxima;
 
-    private QuartoDisponivelSubject subject;
+    protected QuartoNovoSubject subject;
 
-    public Quarto() {
-        this.subject = new QuartoDisponivelSubject();
+    public void configurarOuvintes() {
+        this.subject = UsuarioController.recuperarOuvintes();
+        this.subject.notificarObservers();
     }
 
     public int getCodigoQuarto() {
@@ -72,11 +74,5 @@ public class Quarto {
 
     public void removerObserver(IObserver observer) {
         this.subject.removerObserver(observer);
-    }
-
-    public void setDisponivel(boolean disponivel) {
-        if (disponivel) {
-            this.subject.quartoDisponivel(); 
-        }
     }
 }

@@ -1,9 +1,13 @@
 package controller;
 
+import models.quarto.Quarto;
 import models.quarto.QuartoFactory;
 import models.quarto.Quartos;
+import models.quarto.observer.ClienteObserver;
+import utils.mapper.Mapper;
 import dao.QuartoDAO;
 import dto.QuartoDTO;
+
 import java.util.ArrayList;
 
 public class QuartoController {
@@ -41,6 +45,7 @@ public class QuartoController {
             // Salvando o quarto no Banco de Dados
             QuartoDAO quartoDAO = new QuartoDAO();
             quartoDAO.cadastrarQuarto(quartoDTO);
+            quarto.configurarOuvintes();
         }
     }
 

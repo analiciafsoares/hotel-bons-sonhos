@@ -13,8 +13,8 @@ public class ClienteObserver implements IObserver {
     }
 
     @Override
-    public void update(String message) {
-        enviarEmail(message);
+    public void atualizar() {
+        enviarEmail("Adicionamos um novo quarto! Confira no nosso app :)");
     }
 
     private void enviarEmail(String mensagem) {

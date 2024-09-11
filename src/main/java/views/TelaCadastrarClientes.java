@@ -3,6 +3,7 @@ package views;
 import views.ObjetosTelas.Botao;
 import views.ObjetosTelas.EspacoSenha;
 import views.ObjetosTelas.EspacoTexto;
+import views.telasCliente.TelaMenuCliente;
 import utils.telas.ValidarCampos;
 
 import java.awt.event.ActionEvent;
@@ -79,6 +80,7 @@ public class TelaCadastrarClientes extends JanelaPadrao{
                 ClienteDTO cliente = UsuarioController.cadastrarCliente(dto);
                 if (cliente != null) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo, " + cliente.getNome() + "! Você foi cadastrado com sucesso");
+                    new TelaMenuCliente(cliente.getCPF());
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Não foi possível cadastrar cliente!");

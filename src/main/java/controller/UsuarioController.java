@@ -4,6 +4,8 @@ import dao.UsuarioDAO;
 import dto.AdmDTO;
 import dto.ClienteDTO;
 import dto.UsuarioDTO;
+import models.quarto.observer.ClienteObserver;
+import models.quarto.observer.QuartoNovoSubject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +40,15 @@ public class UsuarioController {
             System.out.println(e.getMessage());
         }
         return a;
+    }
+
+    public static QuartoNovoSubject recuperarOuvintes(){
+        ArrayList<UsuarioDTO> usuarios = new UsuarioDAO().listarUsuarios(true);
+        QuartoNovoSubject qns = new QuartoNovoSubject();
+        for (UsuarioDTO usuario: usuarios) {
+            qns.adicionarObserver(new ClienteObserver(usuario.getEmail()));
+        }
+        return qns;
     }
 
     public static boolean verificarUsuarios() {

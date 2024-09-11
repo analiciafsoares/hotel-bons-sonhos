@@ -87,12 +87,7 @@ public class InformacoesQuarto extends JanelaPadrao {
                             ReservaController.reservarQuarto(quartos.get(indiceAtual), CPFCliente, checkinDate, checkoutDate);
                             JOptionPane.showMessageDialog(null, "Reserva realizada!");
                         } else {
-                            int resposta = JOptionPane.showConfirmDialog(null, "Se interessou? Deseja receber um e-mail quando tivermos atualizações?", "Quarto indisponível", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            if (resposta == JOptionPane.YES_OPTION){
-                                String email = UsuarioController.recuperarEmail(CPFCliente);
-                                ClienteObserver c = new ClienteObserver(email);
-                                JOptionPane.showMessageDialog(null, "Cadastramos você na lista de interessados, fique de olho no e-mail!");
-                            } 
+                            JOptionPane.showMessageDialog(null, "Quarto indisponível, porém, enviaremos um e-mail quando novos quartos forem adicionados!", "Quarto indisponível", JOptionPane.INFORMATION_MESSAGE);
                             return;
                         }
 
