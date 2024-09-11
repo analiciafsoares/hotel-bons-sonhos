@@ -10,6 +10,7 @@ import models.reserva.Reserva;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReservaDAO {
     public void cadastrarReserva(ReservaDTO reserva){
@@ -63,6 +64,37 @@ public class ReservaDAO {
     
         return reservas;
     }    
+
+    public List<ReservaDTO> listarReservasPorQuarto(int codigoQuarto) {
+        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout FROM reservas WHERE id_quarto = ?";
+        List<ReservaDTO> reservas = new ArrayList<>();
+
+        try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
+            ps.setInt(1, codigoQuarto);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ReservaDTO reserva = new ReservaDTO();
+                reserva.setId(rs.getInt("id"));
+
+                UsuarioDTO cliente = new UsuarioDAO().recuperarUsuario(rs.getString("id_cliente"));
+                QuartoDTO quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
+
+                reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
+                reserva.setQuarto(Mapper.parseObject(quarto, Quarto.class));
+
+                reserva.setDataCheckin(rs.getDate("data_checkin"));
+                reserva.setDataCheckout(rs.getDate("data_checkout"));
+
+                reservas.add(reserva);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservas;
+    }
 
     public ReservaDTO recuperarReserva(int id) {
         String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout FROM reservas WHERE id = ?";
