@@ -1,12 +1,22 @@
 package models.quarto;
 
+import models.quarto.observer.IObserver;
+import models.quarto.observer.QuartoDisponivelSubject;
+
 public class Quarto {
+
     private int codigoQuarto;
     private int numero;
     private int andar;
     private double precoDiaria;
     private String tipo;
     private int capacidadeMaxima;
+
+    private QuartoDisponivelSubject subject;
+
+    public Quarto() {
+        this.subject = new QuartoDisponivelSubject();
+    }
 
     public int getCodigoQuarto() {
         return codigoQuarto;
@@ -15,7 +25,7 @@ public class Quarto {
     public void setCodigoQuarto(int id) {
         this.codigoQuarto = id;
     }
-    
+
     public int getNumero() {
         return numero;
     }
@@ -39,24 +49,34 @@ public class Quarto {
     public void setPrecoDiaria(double precoDiaria) {
         this.precoDiaria = precoDiaria;
     }
-    public String getTipo(){
+
+    public String getTipo() {
         return tipo;
     }
-    public void setTipo(String tipo){
+
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    public void setCapacidadeMaxima(int capacidadeMaxima){
-        this.capacidadeMaxima = capacidadeMaxima;
-    }
-    public int getCapacidadeMaxima(){
+
+    public int getCapacidadeMaxima() {
         return capacidadeMaxima;
     }
-    public String validarCapacidade(int numeroDeHospedes) {
-        if (numeroDeHospedes <= this.capacidadeMaxima) {
-            return "Capacidade válida";
-        } else {
-            return "Capacidade excedida. Máximo permitido: " + this.capacidadeMaxima;
+
+    public void setCapacidadeMaxima(int capacidadeMaxima) {
+        this.capacidadeMaxima = capacidadeMaxima;
+    }
+
+    public void adicionarObserver(IObserver observer) {
+        this.subject.adicionarObserver(observer);
+    }
+
+    public void removerObserver(IObserver observer) {
+        this.subject.removerObserver(observer);
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        if (disponivel) {
+            this.subject.quartoDisponivel(); 
         }
     }
-    
 }
