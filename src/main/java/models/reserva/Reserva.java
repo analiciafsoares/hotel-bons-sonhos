@@ -5,7 +5,7 @@ import models.quarto.Quarto;
 
 import java.sql.Date;
 
-public class Reserva {
+public class Reserva implements Prototype{
 
     private int id;
     private Cliente cliente;
@@ -71,5 +71,9 @@ public class Reserva {
 
     public void setPrecoTotal(double precoTotal) {
         this.precoTotal = precoTotal;
+    }
+
+    public Prototype clone() {
+        return new Reserva();
     }
 }
