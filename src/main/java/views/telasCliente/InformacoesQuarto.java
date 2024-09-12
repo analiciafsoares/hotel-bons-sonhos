@@ -95,6 +95,9 @@ public class InformacoesQuarto extends JanelaPadrao {
                     } catch (ParseException pe) {
                         JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
                         return;
+                    } catch (IllegalArgumentException exception) {
+                        JOptionPane.showMessageDialog(null, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 }
             }
