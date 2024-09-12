@@ -1,5 +1,6 @@
 package views.telasCliente;
 
+import controller.UsuarioController;
 import dto.ReservaDTO;
 import views.JanelaPadrao;
 import views.ObjetosTelas.Botao;
@@ -8,6 +9,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import controller.ReservaController;
+import views.ObjetosTelas.EspacoTexto;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +23,7 @@ public class VisualizarReservas extends JanelaPadrao {
     private DefaultTableModel modelo;
     private JTable tabela;
     private JScrollPane painelTabela;
+    private EspacoTexto emailUsuario = new EspacoTexto();
 
     public VisualizarReservas(String CPF){
         this.CPF = CPF;
@@ -51,7 +54,7 @@ public class VisualizarReservas extends JanelaPadrao {
         });
     }
 
-//Tabela para mostrar os quartos do cliente, falta pegar as reservas, e também configurar as linhas
+
 
     public void tabela() {
         ArrayList<ReservaDTO> reservas = ReservaController.resgatarReservasDeClientes(CPF);
@@ -81,8 +84,11 @@ public class VisualizarReservas extends JanelaPadrao {
         detalhar.setBounds(324,559,262,87);
         cancelar.setBounds(708,559,262,87);
         voltarMenu.setBounds(1140,80,105,40);
+        emailUsuario.setBounds(52,80,436,36);
+        emailUsuario.setText(UsuarioController.recuperarEmail(CPF));
         add(cancelar);
         add(detalhar);
         add(voltarMenu);
+        add(emailUsuario);
     }
 }
