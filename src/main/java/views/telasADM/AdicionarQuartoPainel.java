@@ -33,7 +33,7 @@ public class AdicionarQuartoPainel extends PainelPadrao {
             }
             
             int numeroQuarto = Integer.parseInt(numero.getText());
-            String tipoQuarto = categoria.getText();
+            String tipoQuarto = categoria.getText().toLowerCase();
             int andarQuarto = Integer.parseInt(andar.getText());
             double precoDiariaQuarto = Double.parseDouble(precoDiaria.getText());
             
