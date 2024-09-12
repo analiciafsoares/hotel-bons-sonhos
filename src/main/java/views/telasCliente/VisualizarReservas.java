@@ -8,6 +8,7 @@ import views.ObjetosTelas.Botao;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import controller.QuartoController;
 import controller.ReservaController;
 import views.ObjetosTelas.EspacoTexto;
 
@@ -38,13 +39,22 @@ public class VisualizarReservas extends JanelaPadrao {
         detalhar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int linha = tabela.getSelectedRow();
+                if (linha != -1){
+                    Object idReserva = tabela.getValueAt(linha, 0);
+                    String mensagem = QuartoController.recuperarInfoQuarto(Integer.parseInt(idReserva.toString()));
+                    
+                    JOptionPane.showMessageDialog(null, mensagem + idReserva, "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma reserva para ver detalhes");
+                }
             }
         });
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                return;
             }
         });
         voltarMenu.addActionListener(new ActionListener() {
@@ -55,8 +65,6 @@ public class VisualizarReservas extends JanelaPadrao {
         });
     }
 
-
-
     public void tabela() {
         ArrayList<ReservaDTO> reservas = ReservaController.resgatarReservasDeClientes(CPF);
         modelo  = new DefaultTableModel();
@@ -65,6 +73,7 @@ public class VisualizarReservas extends JanelaPadrao {
         modelo.addColumn("Checkin");
         modelo.addColumn("Checkout");
         modelo.addColumn("Preço Total");
+
         for(ReservaDTO reserva: reservas) {
             Object[] linha = new Object[5];
             linha[0] = reserva.getId();

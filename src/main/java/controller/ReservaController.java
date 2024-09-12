@@ -30,7 +30,7 @@ public class ReservaController {
         if (quantReservas > 10) {
             estrategiaPreco = new EstrategiaPrecoClienteFiel();
         } 
-        //Se for julho ou dezembro, promoção
+        //Se for julho ou dezembro, o preço aumenta pela demanda
         else if (mesCheckin == 7 || mesCheckin == 12) {
             estrategiaPreco = new EstrategiaPrecoSazonal();
         } 

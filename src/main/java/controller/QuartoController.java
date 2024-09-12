@@ -1,8 +1,10 @@
 package controller;
 
+import models.quarto.Quarto;
 import models.quarto.QuartoFactory;
 import models.quarto.Quartos;
 import dao.QuartoDAO;
+import dao.ReservaDAO;
 import dto.QuartoDTO;
 
 import java.util.ArrayList;
@@ -11,23 +13,7 @@ public class QuartoController {
 
     public static void criarQuarto(int numero, String tipo, int andar, double precoDiaria) {
         
-        QuartoFactory factory = new QuartoFactory();
-
-        
-        Quartos quarto;
-        switch (tipo.toLowerCase()) {
-            case "luxo":
-                quarto = factory.criarQuartoDeLuxo(numero, andar, precoDiaria);
-                break;
-            case "simples":
-                quarto = factory.criarQuartoSimples(numero, andar, precoDiaria);
-                break;
-            case "suite":
-                quarto = factory.criarQuartoSuite(numero, andar, precoDiaria);
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de quarto inválido");
-        }
+        Quarto quarto = tipoQuartoFactory(numero, tipo, andar, precoDiaria);
 
         // Criando um DTO  com o quarto
         if (quarto != null) {
@@ -44,6 +30,33 @@ public class QuartoController {
             quartoDAO.cadastrarQuarto(quartoDTO);
             quarto.configurarOuvintes();
         }
+    }
+
+    public static Quartos tipoQuartoFactory(int numero, String tipo, int andar, double precoDiaria){
+        QuartoFactory factory = new QuartoFactory();
+
+        Quartos quarto;
+        switch (tipo.toLowerCase()) {
+            case "luxo":
+                quarto = factory.criarQuartoDeLuxo(numero, andar, precoDiaria);
+                break;
+            case "simples":
+                quarto = factory.criarQuartoSimples(numero, andar, precoDiaria);
+                break;
+            case "suite":
+                quarto = factory.criarQuartoSuite(numero, andar, precoDiaria);
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de quarto inválido");
+        }
+
+        return quarto;
+    }
+
+    public static String recuperarInfoQuarto(int id){
+        Quarto q = new ReservaDAO().recuperarReserva(id).getQuarto();
+
+        return tipoQuartoFactory(q.getNumero(), q.getTipo(), q.getAndar(), q.getPrecoDiaria()).getDescricaoBasica();
     }
 
     public static boolean removerQuarto(int numero, String categoria, int andar) {
