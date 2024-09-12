@@ -85,11 +85,9 @@ public class ReservaController {
         ArrayList<ReservaDTO> reservas = new ReservaDAO().listarReservas();
         
         for (ReservaDTO reserva : reservas) {
-            if (reserva.getCliente().getCPF().equals(cpf)) {
-                if(quarto.getCodigoQuarto() == reserva.getQuarto().getCodigoQuarto()) {
-                    Reserva r = Mapper.parseObject(reserva, Reserva.class);
-                    return r.clone();
-                }
+            if (reserva.getCliente().getCPF().equals(cpf)) {     
+                Reserva r = Mapper.parseObject(reserva, Reserva.class);
+                return r.clone();
             }
         }
         return null;
