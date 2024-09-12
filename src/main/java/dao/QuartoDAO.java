@@ -1,8 +1,6 @@
 package dao;
 
 import dto.QuartoDTO;
-import utils.mapper.Mapper;
-import models.quarto.Quarto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +10,6 @@ import java.util.ArrayList;
 
 public class QuartoDAO {
     public void cadastrarQuarto(QuartoDTO quarto){
-        Quarto entity = Mapper.parseObject(quarto, Quarto.class);
-
         String sql = "INSERT INTO quartos (ID, TIPO, PRECO_DIARIA, NUMERO, ANDAR, CAPACIDADE) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = null;
 
@@ -87,8 +83,6 @@ public class QuartoDAO {
     }
 
     public boolean atualizarQuarto(QuartoDTO quarto) {
-        Quarto entity = Mapper.parseObject(quarto, Quarto.class);
-
         String sql = "UPDATE quartos SET tipo = ?, preco_diaria = ?, numero = ?, andar = ?, capacidade = ? WHERE id = ?";
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {

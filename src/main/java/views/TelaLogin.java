@@ -69,8 +69,4 @@ public class TelaLogin extends JanelaPadrao{
         add(senha);
         add(cadastrar);
     }
-
-    public static void main(String[] args) {
-        new TelaLogin();
-    }
 }

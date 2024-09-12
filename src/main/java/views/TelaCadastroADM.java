@@ -84,8 +84,4 @@ public class TelaCadastroADM extends JanelaPadrao{
         add(email);
         add(telefone);
     }
-
-    public static void main(String[] args) {
-        new TelaCadastroADM();
-    }
 }

@@ -41,8 +41,4 @@ public class TelaMenuADM extends JanelaPadrao {
         add(atualizarCliente);
         add(infomacoesCliente);
     }
-
-    public static void main(String[] args) {
-        new TelaMenuADM();
-    }
 }

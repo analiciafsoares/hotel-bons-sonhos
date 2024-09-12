@@ -88,8 +88,4 @@ public class TelaCadastrarClientes extends JanelaPadrao{
             }
         });
     }    
-
-    public static void main(String[] args) {
-        new TelaCadastrarClientes();
-    }
 }

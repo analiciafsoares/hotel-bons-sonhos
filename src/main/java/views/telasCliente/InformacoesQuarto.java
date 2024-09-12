@@ -45,6 +45,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         ouvintes();
         fundo("Informações de Quartos");
         exibirQuartoAtual();
+        imagem(quartos.get(indiceAtual).getTipo());
     }
 
     private void ouvintes() {
@@ -102,8 +103,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         maisImagens.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                imagem(quarto.getTipo());
-
+                imagem(quartos.get(indiceAtual).getTipo());
             }
         });
         menu.addActionListener(new ActionListener() {
@@ -125,7 +125,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         capacidade.setBounds(767,356,30,35);
         numero.setBounds(1022,208,50,35);
         andar.setBounds(994,282,30,35);
-        tipo.setBounds(978,356,80,35);
+        tipo.setBounds(978,356,100,35);
         menu.setBounds(1127,84,124,52);
         add(codigo);
         add(diaria);
