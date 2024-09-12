@@ -6,15 +6,13 @@ import dto.UsuarioDTO;
 import utils.mapper.Mapper;
 import models.*;
 import models.quarto.Quarto;
-import models.reserva.Reserva;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReservaDAO {
     public void cadastrarReserva(ReservaDTO reserva){
-        Reserva entity = Mapper.parseObject(reserva, Reserva.class);
+        //Reserva entity = Mapper.parseObject(reserva, Reserva.class);
 
         String sql = "INSERT INTO reservas (ID, ID_CLIENTE, ID_QUARTO, DATA_CHECKIN, DATA_CHECKOUT, PRECO_TOTAL) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = null;
@@ -68,12 +66,44 @@ public class ReservaDAO {
         return reservas;
     }    
 
-    public List<ReservaDTO> listarReservasPorQuarto(int codigoQuarto) {
+    public ArrayList<ReservaDTO> listarReservasPorQuarto(int codigoQuarto) {
         String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout, preco_total FROM reservas WHERE id_quarto = ?";
-        List<ReservaDTO> reservas = new ArrayList<>();
+        ArrayList<ReservaDTO> reservas = new ArrayList<>();
 
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setInt(1, codigoQuarto);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ReservaDTO reserva = new ReservaDTO();
+                reserva.setId(rs.getInt("id"));
+
+                UsuarioDTO cliente = new UsuarioDAO().recuperarUsuario(rs.getString("id_cliente"));
+                QuartoDTO quarto = new QuartoDAO().recuperarQuarto(rs.getInt("id_quarto"));
+
+                reserva.setCliente(Mapper.parseObject(cliente, Cliente.class));
+                reserva.setQuarto(Mapper.parseObject(quarto, Quarto.class));
+
+                reserva.setDataCheckin(rs.getDate("data_checkin"));
+                reserva.setDataCheckout(rs.getDate("data_checkout"));
+                reserva.setPrecoTotal(rs.getDouble("preco_total"));
+
+                reservas.add(reserva);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservas;
+    }
+
+    public ArrayList<ReservaDTO> listarReservasPorCliente(String cpf) {
+        String sql = "SELECT id, id_cliente, id_quarto, data_checkin, data_checkout, preco_total FROM reservas WHERE id_cliente = ?";
+        ArrayList<ReservaDTO> reservas = new ArrayList<>();
+
+        try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
+            ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -133,7 +163,7 @@ public class ReservaDAO {
     public boolean atualizarReserva(ReservaDTO reserva) {
         String sql = "UPDATE reservas SET id_cliente = ?, id_quarto = ?, data_checkin = ?, data_checkout = ?, preco_total = ? WHERE id = ?";
 
-        Reserva entity = Mapper.parseObject(reserva, Reserva.class);
+        //Reserva entity = Mapper.parseObject(reserva, Reserva.class);
     
         try (PreparedStatement ps = SingletonConnection.getCon().prepareStatement(sql)) {
             ps.setString(1, reserva.getCliente().getCPF());

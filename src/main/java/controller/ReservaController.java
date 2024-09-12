@@ -11,6 +11,7 @@ import dao.ReservaDAO;
 import dto.ClienteDTO;
 import dto.QuartoDTO;
 import dto.ReservaDTO;
+import models.reserva.Reserva;
 import models.reserva.ReservaBuilder;
 import models.strategy.*;
 import utils.mapper.Mapper;
@@ -18,8 +19,6 @@ import utils.mapper.Mapper;
 public class ReservaController {
 
     public static double reservarQuarto(QuartoDTO quarto, String cpf, Date checkin, Date checkout) {
-        ClienteDTO cliente = Mapper.parseObject(UsuarioController.resgatarCliente(cpf), ClienteDTO.class);
-
         int quantReservas = consultarReservasAnteriores(cpf);
 
         IEstrategiaDePrecos estrategiaPreco;
@@ -61,19 +60,39 @@ public class ReservaController {
             precoTotal = quarto.getPrecoDiaria() * numeroDeNoites;
         }
 
-        
-        ReservaBuilder builder = new ReservaBuilder()
-            .setId(new Random().nextInt(10000))
-            .setCliente(cliente)
-            .setQuarto(quarto)
-            .setDataCheckin(checkin)
-            .setDataCheckout(checkout)
-            .setPrecoTotal(precoTotal);
+        // verifica se existe algum protótipo de reserva
+        Reserva reserva = consultarReservaPrototype(quarto, cpf);
+
+        ReservaBuilder builder = new ReservaBuilder().setId(new Random().nextInt(10000))
+                                                        .setDataCheckin(checkin)
+                                                        .setDataCheckout(checkout)
+                                                        .setPrecoTotal(precoTotal)
+                                                        .setQuarto(quarto);
+
+        if (reserva == null){
+            ClienteDTO cliente = Mapper.parseObject(UsuarioController.resgatarCliente(cpf), ClienteDTO.class);
+            builder.setCliente(cliente);
+        } else {
+            builder.setCliente(Mapper.parseObject(reserva.getCliente(), ClienteDTO.class));
+        }
 
         new ReservaDAO().cadastrarReserva(Mapper.parseObject(builder.builder(), ReservaDTO.class));
-
         
         return precoTotal;
+    }
+
+    public static Reserva consultarReservaPrototype(QuartoDTO quarto, String cpf) {
+        ArrayList<ReservaDTO> reservas = new ReservaDAO().listarReservas();
+        
+        for (ReservaDTO reserva : reservas) {
+            if (reserva.getCliente().getCPF().equals(cpf)) {
+                if(quarto.getCodigoQuarto() == reserva.getQuarto().getCodigoQuarto()) {
+                    Reserva r = Mapper.parseObject(reserva, Reserva.class);
+                    return r.clone();
+                }
+            }
+        }
+        return null;
     }
 
     public static int consultarReservasAnteriores(String cpf) {
@@ -87,6 +106,12 @@ public class ReservaController {
         }
 
         return quantidade;
+    }
+
+    public static ArrayList<ReservaDTO> resgatarReservasDeClientes(String cpf) {
+        ArrayList<ReservaDTO> reservas = new ReservaDAO().listarReservasPorCliente(cpf);
+
+        return reservas;
     }
 
     public static boolean consultarDisponibilidade(QuartoDTO quarto, Date dataCheckin, Date dataCheckout) {

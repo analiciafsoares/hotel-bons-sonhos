@@ -2,8 +2,12 @@ package models.reserva;
 
 import models.Cliente;
 import models.quarto.Quarto;
+import utils.mapper.Mapper;
 
 import java.sql.Date;
+
+import dto.ClienteDTO;
+import dto.QuartoDTO;
 
 public class Reserva implements Prototype{
 
@@ -73,7 +77,13 @@ public class Reserva implements Prototype{
         this.precoTotal = precoTotal;
     }
 
-    public Prototype clone() {
-        return new Reserva();
+    public Reserva clone() {
+        return new ReservaBuilder()
+        .setCliente(Mapper.parseObject(this.getCliente(), ClienteDTO.class))
+        .setQuarto(Mapper.parseObject(this.getQuarto(), QuartoDTO.class))
+        .setDataCheckin(this.dataCheckin)
+        .setDataCheckout(this.dataCheckout)
+        .setPrecoTotal(this.getPrecoTotal())
+        .builder();
     }
 }
