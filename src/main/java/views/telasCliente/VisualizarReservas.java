@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.ReservaController;
 import views.ObjetosTelas.EspacoTexto;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -77,7 +78,9 @@ public class VisualizarReservas extends JanelaPadrao {
         tabela.setOpaque(false);
         tabela.setShowGrid(false);
         tabela.setBackground(new java.awt.Color(0, 0, 0, 0));
-        tabela.setForeground(java.awt.Color.WHITE);
+        tabela.setForeground(Color.BLACK);
+        tabela.setFont(new Font("Arial",Font.PLAIN,26));
+        tabela.setRowHeight(35);
         painelTabela = new JScrollPane(tabela);
         painelTabela.setOpaque(false);
         painelTabela.getViewport().setOpaque(false);
