@@ -74,7 +74,13 @@ public class VisualizarReservas extends JanelaPadrao {
             modelo.addRow(linha);
         }
         tabela = new JTable(modelo);
+        tabela.setOpaque(false);
+        tabela.setShowGrid(false);
+        tabela.setBackground(new java.awt.Color(0, 0, 0, 0));
+        tabela.setForeground(java.awt.Color.WHITE);
         painelTabela = new JScrollPane(tabela);
+        painelTabela.setOpaque(false);
+        painelTabela.getViewport().setOpaque(false);
         painelTabela.setBounds(0,215,1280,288);
         add(painelTabela);
         repaint();
