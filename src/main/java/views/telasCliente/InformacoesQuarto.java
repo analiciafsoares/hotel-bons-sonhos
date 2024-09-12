@@ -14,9 +14,7 @@ import java.sql.Date;
 
 import controller.QuartoController;
 import controller.ReservaController;
-import controller.UsuarioController;
 import dto.QuartoDTO;
-import models.quarto.observer.ClienteObserver;
 import utils.telas.ValidarCampos;
 import views.ObjetosTelas.TextosTelas;
 

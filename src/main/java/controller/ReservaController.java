@@ -20,17 +20,14 @@ public class ReservaController {
     public static double reservarQuarto(QuartoDTO quarto, String cpf, Date checkin, Date checkout) {
         ClienteDTO cliente = Mapper.parseObject(UsuarioController.resgatarCliente(cpf), ClienteDTO.class);
 
-       
         int quantReservas = consultarReservasAnteriores(cpf);
 
-        
         IEstrategiaDePrecos estrategiaPreco;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(checkin);
 
         int mesCheckin = calendar.get(Calendar.MONTH) + 1;  
 
-       
         if (quantReservas > 10) {
             estrategiaPreco = new EstrategiaPrecoClienteFiel();
         } 
@@ -38,7 +35,7 @@ public class ReservaController {
         else if (mesCheckin == 7 || mesCheckin == 12) {
             estrategiaPreco = new EstrategiaPrecoSazonal();
         } 
-        // Aqui eu confesso que fiquei sem ideias, então botei Março para ser promoção, já que a demanda é menor
+        // Março é aniversário do hotel então tem promoção
         else if (mesCheckin == 3) {
             estrategiaPreco = new EstrategiaPrecoPromo();
         }
@@ -47,11 +44,17 @@ public class ReservaController {
             estrategiaPreco = null;
         }
 
-       
-        int numeroDeNoites = checkout.getDate() - checkin.getDate();
+        calendar.setTime(checkin);
+        int diaCheckin = calendar.get(Calendar.DAY_OF_MONTH);
+
+        calendar.setTime(checkout);
+        int diaCheckout = calendar.get(Calendar.DAY_OF_MONTH);
+        
+        int numeroDeNoites = diaCheckout - diaCheckin;
+
         double precoTotal;
 
-        // Se nenhuma estratégia pegar, use o preço normal mermo
+        // Se nenhuma estratégia for usada será o preço integral da diária
         if (estrategiaPreco != null) {
             precoTotal = estrategiaPreco.calcularPreco(quarto.getPrecoDiaria(), numeroDeNoites, quantReservas);
         } else {

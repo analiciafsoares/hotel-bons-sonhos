@@ -1,10 +1,7 @@
 package controller;
 
-import models.quarto.Quarto;
 import models.quarto.QuartoFactory;
 import models.quarto.Quartos;
-import models.quarto.observer.ClienteObserver;
-import utils.mapper.Mapper;
 import dao.QuartoDAO;
 import dto.QuartoDTO;
 
