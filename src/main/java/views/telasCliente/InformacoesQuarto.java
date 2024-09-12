@@ -126,6 +126,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         numero.setBounds(1022,208,50,35);
         andar.setBounds(994,282,30,35);
         tipo.setBounds(978,356,80,35);
+        menu.setBounds(1127,84,124,52);
         add(codigo);
         add(diaria);
         add(capacidade);
@@ -136,6 +137,7 @@ public class InformacoesQuarto extends JanelaPadrao {
         add(reservar);
         add(proximo);
         add(maisImagens);
+        add(menu);
     }
     // imagens de quartos do tipo luxo,simples e suite
     private void imagem(String tipo){
