@@ -73,32 +73,34 @@ public class InformacoesQuarto extends JanelaPadrao {
         reservar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String checkin = JOptionPane.showInputDialog(null, "Digite a data de checkin: (dd/mm/yyyy)");
                 String checkout = JOptionPane.showInputDialog(null, "Digite a data de checkout: (dd/mm/yyyy)");
-
+        
                 if (checkin != null && checkout != null) {
                     try {
-                        // Validate dates
+                        // Validando datas
                         Date checkinDate = ValidarCampos.parseDate(checkin);
                         Date checkoutDate = ValidarCampos.parseDate(checkout);
-
+        
                         if(ReservaController.consultarDisponibilidade(quartos.get(indiceAtual), checkinDate, checkoutDate)) {
-                            ReservaController.reservarQuarto(quartos.get(indiceAtual), CPFCliente, checkinDate, checkoutDate);
-                            JOptionPane.showMessageDialog(null, "Reserva realizada!");
+                            
+                            double precoTotal = ReservaController.reservarQuarto(quartos.get(indiceAtual), CPFCliente, checkinDate, checkoutDate);
+                            
+                            
+                            JOptionPane.showMessageDialog(null, "Reserva realizada! Preço total: R$ " + precoTotal);
                         } else {
                             JOptionPane.showMessageDialog(null, "Quarto indisponível, porém, enviaremos um e-mail quando novos quartos forem adicionados!", "Quarto indisponível", JOptionPane.INFORMATION_MESSAGE);
                             return;
                         }
-
+        
                     } catch (ParseException pe) {
                         JOptionPane.showMessageDialog(null, "Formato de data inválido. Por favor, use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
-
             }
         });
+        
         maisImagens.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
